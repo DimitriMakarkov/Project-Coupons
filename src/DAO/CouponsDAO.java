@@ -15,7 +15,7 @@ public interface CouponsDAO {
 
     Coupons getOneCoupon(int CouponID);
 
-    String addCouponPurchase(int var1, int var2);
+    void addCouponPurchase(int CustomerID, int CouponID);
 
-    String deleteCouponPurchase(int var1, int var2);
+    void deleteCouponPurchase(int CustomerID, int CouponID);
 }

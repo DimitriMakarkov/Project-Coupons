@@ -12,4 +12,10 @@ public class Coupons_Commands {
             "SELECT * FROM `projectcoupons`.`coupons`;";
     public static final String getOneCoupon =
             "SELECT * FROM `projectcoupons`.`coupons` WHERE ID=?;";
+
+    public static final String addCuponPurchase =
+            "INSERT INTO `projectcoupons`.`customers_vs_coupons` VALUES(?,?);";
+
+    public static final String deleteCuponPurchase =
+            "DELETE FROM `projectcoupons`.`customers_vs_coupons` WHERE CUSTOMERS_ID=? AND COUPON_ID=?";
 }

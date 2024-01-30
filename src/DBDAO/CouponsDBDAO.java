@@ -4,14 +4,11 @@ import DAO.CouponsDAO;
 import DataBase.DB_Utilities;
 import Java_Beans.Coupons;
 import SQL_Commands.Coupons_Commands;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
 
 public class CouponsDBDAO implements CouponsDAO {
-    public CouponsDBDAO() {
-    }
 
     public String addCoupon(Coupons coupon) {
         Map<Integer, Object> params = new HashMap();
@@ -33,7 +30,7 @@ public class CouponsDBDAO implements CouponsDAO {
     public String updateCoupon(Coupons coupon) {
         Scanner scanner = new Scanner(System.in);
         Map<Integer, Object> params = new HashMap();
-        System.out.println("Please Enter A New CompanyID: ");
+        System.out.println("Please Enter A New CompanyID: ");    //todo-move to somewhere else
         System.out.print("> ");
         String CompanyID = scanner.next();
         System.out.println("Please Enter A New CategoryID: ");
@@ -90,9 +87,9 @@ public class CouponsDBDAO implements CouponsDAO {
                 int Amount = results.getInt(8);
                 double Price = results.getDouble(9);
                 String Image = results.getString(10);
-                coupons.add(new Coupons(ID, ComapnyID, CategoryID, Title, Description, StartDate, EndDate, Amount, Price, Image));
+                coupons.add(new Coupons(ID, ComapnyID, CategoryID, Title,
+                        Description, StartDate, EndDate, Amount, Price, Image));
             }
-
             coupons.forEach(System.out::println);
             return coupons;
         } catch (SQLException e) {
@@ -109,7 +106,6 @@ public class CouponsDBDAO implements CouponsDAO {
 
     public Coupons getOneCoupon(int CouponID) {
         Coupons coupon = null;
-
         try {
             ResultSet results = DB_Utilities.RunCommandWithParameter(Coupons_Commands.getOneCoupon, CouponID);
             if (results.next()) {
@@ -132,11 +128,19 @@ public class CouponsDBDAO implements CouponsDAO {
         }
     }
 
-    public String addCouponPurchase(int CustomerID, int CouponID) {
-        return null;
+    public void addCouponPurchase(int CustomerID, int CouponID) {
+        Map<Integer, Object> params = new HashMap();
+        params.put(1,CustomerID);
+        params.put(2,CouponID);
+        DB_Utilities.RunCommand(Coupons_Commands.addCuponPurchase,params);
+        System.out.println("The Coupon Has Successfully Been Purchased!");
     }
 
-    public String deleteCouponPurchase(int CustomerID, int CouponID) {
-        return null;
+    public void deleteCouponPurchase(int CustomerID, int CouponID) {
+        Map<Integer, Object> params = new HashMap();
+        params.put(1,CustomerID);
+        params.put(2,CouponID);
+        DB_Utilities.RunCommand(Coupons_Commands.deleteCuponPurchase,params);
+        System.out.println("The Coupon Purchase Has Successfully Been Deleted!");
     }
 }
