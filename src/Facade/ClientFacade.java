@@ -6,13 +6,11 @@ import DAO.CustomersDAO;
 
 public abstract class ClientFacade {
 
-    public CompanyDAO companyDAO;
-    public CustomersDAO customersDAO;
-    public CouponsDAO couponsDAO;
+    protected CompanyDAO companyDAO;
+    protected CustomersDAO customersDAO;
+    protected CouponsDAO couponsDAO;
 
 
-    public boolean Login(String Email, String Password){
+    public abstract boolean Login(String Email, String Password);
 
-        return false;
-    }
 }

@@ -2,7 +2,7 @@ package SQL_Commands;
 
 public class Customer_Commands {
     public static final String isCustomerExists =
-            "SELECT EXISTS(SELECT * FROM `projectcoupons`.`customers` WHERE EMAIL = ? AND PASSWORD = ?);";
+            "SELECT count(*) AS RESULT FROM `projectcoupons`.`customers` WHERE EMAIL = ? AND PASSWORD = ?;";
     public static final String addCustomer =
             "INSERT INTO `projectcoupons`.`customers` VALUES(?,?,?,?,?);";
     public static final String updateCustomer =

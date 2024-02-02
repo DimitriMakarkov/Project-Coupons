@@ -2,6 +2,7 @@ package DBDAO;
 
 import DAO.CouponsDAO;
 import DataBase.DB_Utilities;
+import Java_Beans.Category;
 import Java_Beans.Coupons;
 import SQL_Commands.Coupons_Commands;
 import java.sql.ResultSet;
@@ -74,6 +75,34 @@ public class CouponsDBDAO implements CouponsDAO {
 
     public ArrayList<Coupons> getAllCoupons() {
         ArrayList<Coupons> coupons = new ArrayList();
+        ResultSet results = DB_Utilities.RunCommandFromResult(Coupons_Commands.getAllCoupons);
+        try {
+            while (results.next()) {
+                int ID = results.getInt(1);
+                int ComapnyID = results.getInt(2);
+                int CategoryID = results.getInt(3);
+                String Title = results.getString(4);
+                String Description = results.getString(5);
+                Date StartDate = results.getDate(6);
+                Date EndDate = results.getDate(7);
+                int Amount = results.getInt(8);
+                double Price = results.getDouble(9);
+                String Image = results.getString(10);
+                coupons.add(new Coupons(ID, ComapnyID, CategoryID, Title,
+                        Description, StartDate, EndDate, Amount, Price, Image));
+            }
+            coupons.forEach(System.out::println);
+            return coupons;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public ArrayList<Coupons> getAllCoupons(Category category) {
+        ArrayList<Coupons> coupons = new ArrayList();
+        if (category.equals("Food")){
+
+        }
         ResultSet results = DB_Utilities.RunCommandFromResult(Coupons_Commands.getAllCoupons);
         try {
             while (results.next()) {

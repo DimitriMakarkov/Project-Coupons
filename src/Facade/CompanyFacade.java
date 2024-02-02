@@ -1,5 +1,11 @@
 package Facade;
 
+import Java_Beans.Category;
+import Java_Beans.Coupons;
+import Java_Beans.Company;
+import java.util.ArrayList;
+import java.util.stream.Collectors;
+
 public class CompanyFacade extends ClientFacade{
 
     private int CompanyID;
@@ -7,8 +13,50 @@ public class CompanyFacade extends ClientFacade{
     public CompanyFacade() {
     }
 
+
     @Override
     public boolean Login(String Email, String Password) {
-        return super.Login(Email, Password);
+        if (companyDAO.isCompanyExists(Email,Password)){
+            CompanyID=companyDAO.getCompanyID(Email,Password);
+            return true;
+        }
+        return false;
     }
-}
+
+    public void addCoupon(Coupons coupons){
+        couponsDAO.addCoupon(coupons);
+    }
+
+    public void updateCoupon(Coupons coupons){
+        couponsDAO.updateCoupon(coupons);
+    }
+
+    public void deleteCoupon(int CouponID){
+        couponsDAO.deleteCoupon(CouponID);
+    }
+
+    public ArrayList<Coupons> getCompanyCoupons(){
+        return couponsDAO.getAllCoupons();
+    }
+
+    public ArrayList<Coupons> getCompanyCoupons(Category category){
+        ArrayList<Coupons> coupons=couponsDAO.getAllCoupons();
+        ArrayList<Coupons> CategoryCoupons = new ArrayList<>();
+        CategoryCoupons = coupons.stream().filter(FilterCoupons -> category.equals(FilterCoupons.getCategoryID()))
+                .collect(Collectors.toCollection(ArrayList::new));
+        return CategoryCoupons;
+        }
+    public ArrayList<Coupons> getCompanyCoupons(double maxPrice){
+        ArrayList<Coupons> coupons=couponsDAO.getAllCoupons();
+        ArrayList<Coupons> PriceCoupons = new ArrayList<>();
+        PriceCoupons = coupons.stream().filter(FilterCoupons -> FilterCoupons.getPrice()<=maxPrice)
+                .collect(Collectors.toCollection(ArrayList::new));
+        return PriceCoupons;
+    }
+
+    public Company getCompanyDetails(){
+       return companyDAO.getOneCompany(CompanyID);
+    }
+
+    }
+

@@ -15,4 +15,6 @@ public interface CompanyDAO {
     String deleteCompany(int CompanyID);
 
     Company getOneCompany(int CompanyID);
+
+    int getCompanyID(String Email,String Password);
 }

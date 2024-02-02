@@ -52,13 +52,13 @@ public class Company {
         this.Password = password;
     }
 
-//    public ArrayList<Coupons> getCoupons() {
-//        return this.Coupons;
-//    }
-//
-//    public void setCoupons(ArrayList<Coupons> coupons) {
-//        this.Coupons = coupons;
-//    }
+    public ArrayList<Coupons> getCoupons() {
+        return this.Coupons;
+    }
+
+    public void setCoupons(ArrayList<Coupons> coupons) {
+        this.Coupons = coupons;
+    }
 
     public String toString() {
         return "Company{ID=" + this.ID + ", Name='" + this.Name + "', Email='" + this.Email + "', Password='" + this.Password + "', Coupons=" + this.Coupons + "}";

@@ -5,6 +5,7 @@ import DataBase.ConnectionPool;
 import DataBase.DB_Utilities;
 import Java_Beans.Company;
 import SQL_Commands.Company_Commands;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
@@ -19,18 +20,18 @@ public class CompaniesDBDAO implements CompanyDAO {
         Map<Integer, Object> params = new HashMap();
         params.put(1, Email);
         params.put(2, Password);
-        ResultSet result = DB_Utilities.RunCommandWithResult(Company_Commands.isCompanyExists,params);
-        try{
-        while (result.next()){
-            return result.getInt("RESULT")==1;
-        }
-        return false;
-    }catch (SQLException e) {
+        ResultSet result = DB_Utilities.RunCommandWithResult(Company_Commands.isCompanyExists, params);
+        try {
+            while (result.next()) {
+                return result.getInt("RESULT") == 1;
+            }
+            return false;
+        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
-        public String addCompany(Company company) {
+    public String addCompany(Company company) {
         Map<Integer, Object> params = new HashMap();
         params.put(1, company.getID());
         params.put(2, company.getName());
@@ -81,9 +82,9 @@ public class CompaniesDBDAO implements CompanyDAO {
         }
     }
 
-        public String deleteCompany(int CompanyID) {
+    public String deleteCompany(int CompanyID) {
         Map<Integer, Object> params = new HashMap();
-        params.put(1,CompanyID);
+        params.put(1, CompanyID);
         DB_Utilities.RunCommand(Company_Commands.deleteComapny, params);
         System.out.println("The Company Has Been Deleted");
         return null;
@@ -101,6 +102,19 @@ public class CompaniesDBDAO implements CompanyDAO {
                 company = new Company(ID, Name, Email, Password);
             }
             return company;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public int getCompanyID(String Email,String Password){
+        Map<Integer, Object> params = new HashMap();
+        params.put(1, Email);
+        params.put(2, Password);
+        try {
+            ResultSet results = DB_Utilities.RunCommandWithParameter(Company_Commands.getCompanyViaEmailAndPass,params);
+                int ID = results.getInt("ID");
+                return ID;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

@@ -4,7 +4,6 @@ import DAO.CustomersDAO;
 import DataBase.DB_Utilities;
 import Java_Beans.Customer;
 import SQL_Commands.Customer_Commands;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
@@ -17,12 +16,14 @@ public class CustomersDBDAO implements CustomersDAO {
         Map<Integer, Object> params = new HashMap();
         params.put(1, Email);
         params.put(2, Password);
-        if (DB_Utilities.RunCommand(Customer_Commands.isCustomerExists, params)) {
-            System.out.println("The Customer Is Registered");
-            return true;
-        } else {
-            System.out.println("The Customer Is Not Registered");
+        ResultSet result = DB_Utilities.RunCommandWithResult(Customer_Commands.isCustomerExists, params);
+        try {
+            while (result.next()) {
+                return result.getInt("RESULT") == 1;
+            }
             return false;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 

@@ -13,4 +13,7 @@ public class Company_Commands {
             "SELECT * FROM `projectcoupons`.`companies`;";
     public static final String getOneCompany =
             "SELECT * FROM `projectcoupons`.`companies` WHERE ID=?;";
+
+    public static final String getCompanyViaEmailAndPass=
+            "SELECT ID FROM `projectcoupons`.`companies` WHERE EMAIL = ? AND PASSWORD = ?";
 }
