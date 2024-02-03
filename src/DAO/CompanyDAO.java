@@ -8,6 +8,8 @@ public interface CompanyDAO {
 
     boolean isCompanyExists(String Email, String Password);
 
+    boolean isCompanyDuplicate(String Name,String Email);
+
     String addCompany(Company company);
 
     String updateCompany(Company company);

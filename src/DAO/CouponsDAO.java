@@ -13,6 +13,8 @@ public interface CouponsDAO {
 
     String deleteCoupon(int CouponID);
 
+    String deleteCompanyCoupons(int CompanyID);
+
     Coupons getOneCoupon(int CouponID);
 
     void addCouponPurchase(int CustomerID, int CouponID);

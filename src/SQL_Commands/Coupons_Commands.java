@@ -8,6 +8,11 @@ public class Coupons_Commands {
                     "DESCRIPTION=?,START_DATE = ?,END_DATE = ?,AMOUNT = ?,PRICE = ?,IMAGE = ? WHERE ID = ? ;";
     public static final String deleteCoupon =
             "DELETE FROM `projectcoupons`.`coupons` WHERE ID=?;";
+
+    public static final String deleteCompanyCoupons =
+            "DELETE FROM `projectcoupons`.`customers_vs_coupons` " +
+                    "WHERE ID IN (SELECT ID FROM `projectcoupons`.`coupons` WHERE COMPANY_ID = ?);" +
+                    "DELETE FROM `projectcoupons`.`coupons` WHERE COMPANY_ID = ?;";
     public static final String getAllCoupons =
             "SELECT * FROM `projectcoupons`.`coupons`;";
     public static final String getOneCoupon =

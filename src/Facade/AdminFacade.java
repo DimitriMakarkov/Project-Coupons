@@ -18,7 +18,12 @@ public class AdminFacade extends ClientFacade{
     }
 
     public void addCompany(Company company){
-        companyDAO.addCompany(company);
+        if (companyDAO.isCompanyDuplicate(company.getName(),company.getEmail())){
+            System.out.println("Please enter a different name or email ");
+        }
+        else {
+            companyDAO.addCompany(company);
+        }
     }
 
     public void updateCompany(Company company){
@@ -26,7 +31,7 @@ public class AdminFacade extends ClientFacade{
     }
 
     public void deleteCompany(int CompanyID){
-        companyDAO.deleteCompany(CompanyID);
+        couponsDAO.deleteCompanyCoupons(CompanyID);
     }
 
     public ArrayList<Company> getAllCompanies(){
@@ -37,7 +42,7 @@ public class AdminFacade extends ClientFacade{
         return companyDAO.getOneCompany(CompanyID);
     }
 
-    public void addCustomer(Customer customer){
+    public void addCustomer(Customer customer){       //todo
         customersDAO.addCustomer(customer);
     }
 

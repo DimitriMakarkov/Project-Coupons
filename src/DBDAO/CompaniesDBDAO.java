@@ -31,6 +31,22 @@ public class CompaniesDBDAO implements CompanyDAO {
         }
     }
 
+
+    public boolean isCompanyDuplicate(String Name, String Email) {
+        Map<Integer, Object> params = new HashMap();
+        params.put(1, Name);
+        params.put(2, Email);
+        ResultSet result = DB_Utilities.RunCommandWithResult(Company_Commands.isCompanyDuplicate,params);
+        try {
+            while (result.next()) {
+                return result.getInt("RESULT") == 1;
+            }
+            return false;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public String addCompany(Company company) {
         Map<Integer, Object> params = new HashMap();
         params.put(1, company.getID());
@@ -62,6 +78,15 @@ public class CompaniesDBDAO implements CompanyDAO {
         DB_Utilities.RunCommand(Company_Commands.updateCompany, params);
         System.out.println("The Company Has Been Updated!");
         return null;
+    }
+
+    public void updateCompanyEP(Company company){
+        Map<Integer, Object> params = new HashMap();
+        params.put(1, company.getEmail());
+        params.put(2, company.getPassword());
+        params.put(3,company.getName());
+        DB_Utilities.RunCommand(Company_Commands.updateCompanyEP,params);
+        System.out.println("The Company Has Been Updated!");
     }
 
     public ArrayList<Company> getAllCompanies() {
