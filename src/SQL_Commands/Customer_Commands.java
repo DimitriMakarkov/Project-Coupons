@@ -5,6 +5,9 @@ public class Customer_Commands {
             "SELECT count(*) AS RESULT FROM `projectcoupons`.`customers` WHERE EMAIL = ? AND PASSWORD = ?;";
     public static final String addCustomer =
             "INSERT INTO `projectcoupons`.`customers` VALUES(?,?,?,?,?);";
+
+    public static final String isCustomerDuplicate =
+            "SELECT count(*) AS RESULT FROM `projectcoupons`.`customers` WHERE EMAIL = ?;";
     public static final String updateCustomer =
             "UPDATE `projectcoupons`.`customers` SET FIRST_NAME = ?,LAST_NAME = ?, EMAIL = ? ,PASSWORD=? WHERE EMAIL = ? AND PASSWORD = ?;";
     public static final String deleteCustomer =

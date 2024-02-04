@@ -13,7 +13,9 @@ public interface CouponsDAO {
 
     String deleteCoupon(int CouponID);
 
-    String deleteCompanyCoupons(int CompanyID);
+    void deleteCompanyHistory(int CompanyID);
+
+    void deleteCustomerHistory(int CustomerID);
 
     Coupons getOneCoupon(int CouponID);
 

@@ -9,6 +9,8 @@ public interface CustomersDAO {
 
     boolean isCustomerExists(String Email, String Password);
 
+    boolean isCustomerDuplicate(String Email);
+
     String addCustomer(Customer customer);
 
     String updateCustomer(Customer customer);

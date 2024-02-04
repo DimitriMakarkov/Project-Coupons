@@ -14,6 +14,8 @@ public interface CompanyDAO {
 
     String updateCompany(Company company);
 
+    void updateCompanyEP(Company company);
+
     String deleteCompany(int CompanyID);
 
     Company getOneCompany(int CompanyID);

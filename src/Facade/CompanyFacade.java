@@ -23,7 +23,7 @@ public class CompanyFacade extends ClientFacade{
         return false;
     }
 
-    public void addCoupon(Coupons coupons){
+    public void addCoupon(Coupons coupons){    //todo
         couponsDAO.addCoupon(coupons);
     }
 

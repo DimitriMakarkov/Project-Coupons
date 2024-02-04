@@ -27,6 +27,20 @@ public class CustomersDBDAO implements CustomersDAO {
         }
     }
 
+    public boolean isCustomerDuplicate(String Email) {
+        Map<Integer, Object> params = new HashMap();
+        params.put(1, Email);
+        ResultSet result = DB_Utilities.RunCommandWithResult(Customer_Commands.isCustomerDuplicate,params);
+        try {
+            while (result.next()) {
+                return result.getInt("RESULT") == 1;
+            }
+            return false;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public String addCustomer(Customer customer) {
         Map<Integer, Object> params = new HashMap();
         params.put(1, customer.getID());

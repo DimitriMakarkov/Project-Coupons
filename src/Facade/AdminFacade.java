@@ -27,11 +27,11 @@ public class AdminFacade extends ClientFacade{
     }
 
     public void updateCompany(Company company){
-        companyDAO.updateCompany(company);
+        companyDAO.updateCompanyEP(company);
     }
 
     public void deleteCompany(int CompanyID){
-        couponsDAO.deleteCompanyCoupons(CompanyID);
+        couponsDAO.deleteCompanyHistory(CompanyID);
     }
 
     public ArrayList<Company> getAllCompanies(){
@@ -42,8 +42,14 @@ public class AdminFacade extends ClientFacade{
         return companyDAO.getOneCompany(CompanyID);
     }
 
-    public void addCustomer(Customer customer){       //todo
-        customersDAO.addCustomer(customer);
+    public void addCustomer(Customer customer){
+            if (customersDAO.isCustomerDuplicate(customer.getEmail())){
+                System.out.println("Customer With The Same Email Exists");
+            }
+            else {
+                customersDAO.addCustomer(customer);
+            }
+
     }
 
     public void updateCustomer(Customer customer){
@@ -51,7 +57,7 @@ public class AdminFacade extends ClientFacade{
     }
 
     public void deleteCustomer(int CustomerID){
-        customersDAO.deleteCustomer(CustomerID);
+        couponsDAO.deleteCustomerHistory(CustomerID);
     }
 
     public ArrayList<Customer> getAllCustomers(){

@@ -133,12 +133,20 @@ public class CouponsDBDAO implements CouponsDAO {
         return null;
     }
 
-        public void deleteCouponHistory(int CompanyID){
+        public void deleteCompanyHistory(int CompanyID){
             Map<Integer, Object> params = new HashMap();
             params.put(1,CompanyID);
             params.put(2,CompanyID);
-            DB_Utilities.RunCommandWithParameter(Coupons_Commands.deleteCompanyCoupons,params);
-            System.out.println("The Company Coupons And History Has Been Deleted");
+            DB_Utilities.RunCommandWithParameter(Coupons_Commands.deleteCompanyHistory,params);
+            System.out.println("The Company's Coupons And History Has Been Deleted");
+        }
+
+        public void deleteCustomerHistory(int CustomerID){
+            Map<Integer, Object> params = new HashMap();
+            params.put(1,CustomerID);
+            params.put(2,CustomerID);
+            DB_Utilities.RunCommandWithParameter(Coupons_Commands.deleteCustomerHistory,params);
+            System.out.println("The Customer's Coupons And History Has Been Deleted");
         }
 
     public Coupons getOneCoupon(int CouponID) {
