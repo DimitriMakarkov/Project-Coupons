@@ -23,8 +23,10 @@ public class CompanyFacade extends ClientFacade{
         return false;
     }
 
-    public void addCoupon(Coupons coupons){    //todo
-        couponsDAO.addCoupon(coupons);
+    public void addCoupon(Coupons coupons){
+        if  (couponsDAO.isCompanyCouponExist(coupons,CompanyID)) {
+            couponsDAO.addCoupon(coupons);
+        }
     }
 
     public void updateCoupon(Coupons coupons){
@@ -32,11 +34,11 @@ public class CompanyFacade extends ClientFacade{
     }
 
     public void deleteCoupon(int CouponID){
-        couponsDAO.deleteCoupon(CouponID);
+        couponsDAO.deleteCouponHistory(CouponID);
     }
 
     public ArrayList<Coupons> getCompanyCoupons(){
-        return couponsDAO.getAllCoupons();
+        return couponsDAO.getAllCompanyCoupons(CompanyID);
     }
 
     public ArrayList<Coupons> getCompanyCoupons(Category category){
@@ -57,6 +59,5 @@ public class CompanyFacade extends ClientFacade{
     public Company getCompanyDetails(){
        return companyDAO.getOneCompany(CompanyID);
     }
-
     }
 

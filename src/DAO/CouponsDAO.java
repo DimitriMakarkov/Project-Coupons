@@ -5,7 +5,8 @@ import Java_Beans.Coupons;
 import java.util.ArrayList;
 
 public interface CouponsDAO {
-    ArrayList<Coupons> getAllCoupons();
+
+    boolean isCompanyCouponExist(Coupons coupons,int CompanyID);
 
     String addCoupon(Coupons coupon);
 
@@ -16,6 +17,12 @@ public interface CouponsDAO {
     void deleteCompanyHistory(int CompanyID);
 
     void deleteCustomerHistory(int CustomerID);
+
+    void deleteCouponHistory(int CouponID);
+
+    ArrayList<Coupons> getAllCoupons();
+
+    ArrayList<Coupons> getAllCompanyCoupons(int CompanyID);
 
     Coupons getOneCoupon(int CouponID);
 
