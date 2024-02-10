@@ -135,6 +135,31 @@ public class CouponsDBDAO implements CouponsDAO {
         }
     }
 
+    public ArrayList<Coupons> getAllCutomerCoupons(int CustomerID) {
+        ArrayList<Coupons> coupons = new ArrayList();
+        ResultSet results = DB_Utilities.RunCommandWithParameter(Coupons_Commands.getAllCustomerCoupons,CustomerID);
+        try {
+            while (results.next()) {
+                int ID = results.getInt(1);
+                int ComapnyID = results.getInt(2);
+                int CategoryID = results.getInt(3);
+                String Title = results.getString(4);
+                String Description = results.getString(5);
+                Date StartDate = results.getDate(6);
+                Date EndDate = results.getDate(7);
+                int Amount = 1;
+                double Price = results.getDouble(8);
+                String Image = results.getString(9);
+                coupons.add(new Coupons(ID, ComapnyID, CategoryID, Title,
+                        Description, StartDate, EndDate, Amount, Price, Image));
+            }
+            coupons.forEach(System.out::println);
+            return coupons;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public ArrayList<Coupons> getAllCouponsByCategory(Category category) {
         ArrayList<Coupons> coupons = new ArrayList();
         if (category.equals("Food")){
@@ -221,7 +246,7 @@ public class CouponsDBDAO implements CouponsDAO {
         Map<Integer, Object> params = new HashMap();
         params.put(1,CustomerID);
         params.put(2,CouponID);
-        DB_Utilities.RunCommand(Coupons_Commands.addCuponPurchase,params);
+        DB_Utilities.RunCommand(Coupons_Commands.addCouponPurchase,params);
         System.out.println("The Coupon Has Successfully Been Purchased!");
     }
 
@@ -229,7 +254,17 @@ public class CouponsDBDAO implements CouponsDAO {
         Map<Integer, Object> params = new HashMap();
         params.put(1,CustomerID);
         params.put(2,CouponID);
-        DB_Utilities.RunCommand(Coupons_Commands.deleteCuponPurchase,params);
+        DB_Utilities.RunCommand(Coupons_Commands.deleteCouponPurchase,params);
         System.out.println("The Coupon Purchase Has Successfully Been Deleted!");
+    }
+
+    public void customerPurchaseCoupon(int CouponID,int CustomerID) {
+        Map<Integer, Object> params = new HashMap();
+        params.put(1,CustomerID);
+        params.put(2,CouponID);
+        params.put(3,CustomerID);
+        params.put(4,CouponID);
+        DB_Utilities.RunCommand(Coupons_Commands.customerPurchaseCoupon,params);
+        System.out.println("The Coupon Has Successfully Been Purchased!");
     }
 }

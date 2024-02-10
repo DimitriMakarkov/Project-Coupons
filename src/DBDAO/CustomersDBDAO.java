@@ -3,6 +3,7 @@ package DBDAO;
 import DAO.CustomersDAO;
 import DataBase.DB_Utilities;
 import Java_Beans.Customer;
+import SQL_Commands.Company_Commands;
 import SQL_Commands.Customer_Commands;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -119,6 +120,19 @@ public class CustomersDBDAO implements CustomersDAO {
                 customer = new Customer(ID, FirstName, LastName, Email, Password);
             }
             return customer;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public int getCustomerViaEmailAndPass(String Email, String Password) {
+        Map<Integer, Object> params = new HashMap();
+        params.put(1, Email);
+        params.put(2, Password);
+        try {
+            ResultSet results = DB_Utilities.RunCommandWithParameter(Customer_Commands.getCustomerID,params);
+            int ID = results.getInt("ID");
+            return ID;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

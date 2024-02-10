@@ -18,4 +18,6 @@ public interface CustomersDAO {
     String deleteCustomer(int CustomerID);
 
     Customer getOneCustomer(int CustomerID);
+
+    int getCustomerViaEmailAndPass(String Email,String Password);
 }

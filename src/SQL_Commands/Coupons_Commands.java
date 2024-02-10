@@ -31,12 +31,30 @@ public class Coupons_Commands {
 
     public static final String getAllCompanyCoupons =
             "SELECT * FROM `projectcoupons`.`coupons` WHERE COMPANY_ID = ?;";
+
+    public static final String getAllCustomerCoupons =
+            "SELECT ID,COMPANY_ID,CATEGORY_ID,TITLE,DESCRIPTION,START_DATE,END_DATE,PRICE,IMAGE FROM `projectcoupons`.`customers_vs_coupons` as CVSC " +
+                    "JOIN `projectcoupons`.`coupons` as CS " +
+                    "ON CVSC.COUPON_ID=CS.ID " +
+                    "WHERE CVSC.CUSTOMERS_ID =?;";
     public static final String getOneCoupon =
             "SELECT * FROM `projectcoupons`.`coupons` WHERE ID=?;";
 
-    public static final String addCuponPurchase =
+    public static final String addCouponPurchase =
             "INSERT INTO `projectcoupons`.`customers_vs_coupons` VALUES(?,?);";
 
-    public static final String deleteCuponPurchase =
+    public static final String deleteCouponPurchase =
             "DELETE FROM `projectcoupons`.`customers_vs_coupons` WHERE CUSTOMERS_ID=? AND COUPON_ID=?";
+
+    public static final String customerPurchaseCoupon =
+            "UPDATE `projectcoupons`.`coupons` " +
+                    "SET AMOUNT = AMOUNT - 1 " +
+                    "WHERE " +
+                    "AMOUNT > 0 " +
+                    "AND END_DATE >= CURDATE() " +
+                    "AND ID NOT IN (SELECT COUPON_ID " +
+                    "FROM `projectcoupons`.`customers_vs_coupons` " +
+                    "WHERE CUSTOMER_ID = ?) " +
+                    "AND ID = ?;" +
+                    "INSERT INTO `projectcoupons`.`customers_vs_coupons` SET CUSTOMER_ID = ?,COUPON_ID =?;";
 }

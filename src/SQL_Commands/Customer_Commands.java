@@ -12,6 +12,9 @@ public class Customer_Commands {
             "UPDATE `projectcoupons`.`customers` SET FIRST_NAME = ?,LAST_NAME = ?, EMAIL = ? ,PASSWORD=? WHERE EMAIL = ? AND PASSWORD = ?;";
     public static final String deleteCustomer =
             "DELETE FROM `projectcoupons`.`customers` WHERE ID=?;";
+
+    public static final String getCustomerID =
+            "SELECT ID FROM `projectcoupons`.`customers` WHERE EMAIL = ? AND PASSWORD = ?;";
     public static final String getAllCustomers =
             "SELECT * FROM `projectcoupons`.`customers`;";
     public static final String getOneCustomer =

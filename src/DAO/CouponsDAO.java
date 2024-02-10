@@ -24,9 +24,13 @@ public interface CouponsDAO {
 
     ArrayList<Coupons> getAllCompanyCoupons(int CompanyID);
 
+    ArrayList<Coupons> getAllCutomerCoupons(int CustomerID);
+
     Coupons getOneCoupon(int CouponID);
 
     void addCouponPurchase(int CustomerID, int CouponID);
 
     void deleteCouponPurchase(int CustomerID, int CouponID);
+
+    void customerPurchaseCoupon(int CouponID,int CustomerID);
 }
