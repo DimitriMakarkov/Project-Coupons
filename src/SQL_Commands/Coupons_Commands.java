@@ -26,6 +26,11 @@ public class Coupons_Commands {
             "DELETE FROM `projectcoupons`.`customers_vs_coupons`" +
                     "WHERE COUPON_ID IN (SELECT ID FROM `projectcoupons`.`coupons` WHERE ID = ?);" +
                     "DELETE FROM `projectcoupons`.`coupons` WHERE ID = ?";
+
+    public static final String deleteExpiredCoupons =
+            "DELETE FROM `projectcoupons`.`customers_vs_coupons` " +
+                    "WHERE COUPON_ID IN (SELECT ID FROM `projectcoupons`.`coupons` WHERE END_DATE < NOW()); " +
+                    "DELETE FROM `projectcoupons`.`coupons` WHERE END_DATE< now();";
     public static final String getAllCoupons =
             "SELECT * FROM `projectcoupons`.`coupons`;";
 

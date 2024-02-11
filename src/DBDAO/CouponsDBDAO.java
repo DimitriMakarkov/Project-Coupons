@@ -218,6 +218,11 @@ public class CouponsDBDAO implements CouponsDAO {
             System.out.println("The Coupon And Coupon History Has Been Deleted");
         }
 
+    public void deleteExpiredCoupons() {
+        DB_Utilities.RunCommand(Coupons_Commands.deleteExpiredCoupons);
+        System.out.println("Expired Coupons Have Been Deleted");
+    }
+
     public Coupons getOneCoupon(int CouponID) {
         Coupons coupon = null;
         try {

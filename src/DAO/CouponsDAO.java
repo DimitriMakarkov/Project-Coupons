@@ -20,6 +20,8 @@ public interface CouponsDAO {
 
     void deleteCouponHistory(int CouponID);
 
+    void deleteExpiredCoupons();
+
     ArrayList<Coupons> getAllCoupons();
 
     ArrayList<Coupons> getAllCompanyCoupons(int CompanyID);

@@ -1,11 +1,26 @@
-import DBDAO.CompaniesDBDAO;
-import Java_Beans.Company;
+
+import Facade.ClientFacade;
+import Job.CouponExpirationDaily;
+import Login.ClientType;
+import Login.LoginManager;
 
 public class Tester {
 
     public static void main(String[] args) {
-        CompaniesDBDAO company = new CompaniesDBDAO();
-        Company hevra = new Company(8,"test","Nothing@gmail.com","87654321");
-        System.out.println(company.isCompanyExists(hevra.getEmail(), hevra.getPassword()));
+    testAll();
+
     }
+
+
+
+
+
+    public static void testAll(){
+        CouponExpirationDaily Thread = new CouponExpirationDaily();
+        Thread.run();
+
+        ClientFacade adminTest = LoginManager.getInstance().Login("admin@admin.com", "admin", ClientType.Administrator);
+
+    }
+
 }
