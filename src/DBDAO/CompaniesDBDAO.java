@@ -98,7 +98,7 @@ public class CompaniesDBDAO implements CompanyDAO {
                 String name = results.getString(2);
                 String email = results.getString(3);
                 String password = results.getString(4);
-                companies.add(new Company(id, name, email, password));
+                companies.add(new Company(name, email, password));//removed id
             }
             companies.forEach(System.out::println);
             return companies;
@@ -124,7 +124,7 @@ public class CompaniesDBDAO implements CompanyDAO {
                 String Name = results.getString("Name");
                 String Email = results.getString("Email");
                 String Password = results.getString("Password");
-                company = new Company(ID, Name, Email, Password);
+                company = new Company(Name, Email, Password);//removed id
             }
             return company;
         } catch (SQLException e) {

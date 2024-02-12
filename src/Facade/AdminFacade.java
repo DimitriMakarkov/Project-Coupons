@@ -1,5 +1,6 @@
 package Facade;
 
+import DAO.CompanyDAO;
 import Java_Beans.Company;
 import Java_Beans.Customer;
 import java.util.ArrayList;
@@ -7,6 +8,8 @@ import java.util.ArrayList;
 public class AdminFacade extends ClientFacade{
 
     public AdminFacade() {
+        CompanyDAO companyDAO;
+        companyDAO = new CompanyDAO();
     }
 
     @Override

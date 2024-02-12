@@ -13,15 +13,16 @@ public class Customer {
     private String Email;
     private String Password;
 //    private ArrayList<Coupons> Coupons;
-}
 
-//    public Customer(int ID, String firstName, String lastName, String email, String password) {
-//        this.ID = ID;
-//        this.FirstName = firstName;
-//        this.LastName = lastName;
-//        this.Email = email;
-//        this.Password = password;
-//    }
+
+    public Customer(String firstName, String lastName, String email, String password) {//removed id
+
+        this.FirstName = firstName;
+        this.LastName = lastName;
+        this.Email = email;
+        this.Password = password;
+    }
+}
 //
 //    public int getID() {
 //        return this.ID;
