@@ -20,14 +20,14 @@ public class Tester {
     public static void testAll(){
 //        CouponExpirationDaily Thread = new CouponExpirationDaily();
 //        Thread.run();
-        Company company = new Company("test Company","testCompany@gmail.com","12345678");
+        Company company = new Company("test Company","test@gmail.com","12345678");
         Customer customer = new Customer("Dima","Makarkov","dima@gmail.com","211");
         ClientFacade userTest = LoginManager.getInstance().Login("admin@admin.com", "admin", ClientType.Administrator);
         if (userTest instanceof AdminFacade){
 
-            ((AdminFacade) userTest).addCompany(company);
+//            ((AdminFacade) userTest).addCompany(company);
 //            ((AdminFacade) userTest).updateCompany(company);
-//            ((AdminFacade) userTest).deleteCompany(company.getID());
+            ((AdminFacade) userTest).deleteCompany(11);
 //            ((AdminFacade) userTest).getAllCompanies();
 //            ((AdminFacade) userTest).getOneCompany(company.getID());
 //

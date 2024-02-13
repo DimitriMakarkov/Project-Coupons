@@ -5,7 +5,6 @@ import DataBase.ConnectionPool;
 import DataBase.DB_Utilities;
 import Java_Beans.Company;
 import SQL_Commands.Company_Commands;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
@@ -61,18 +60,9 @@ public class CompaniesDBDAO implements CompanyDAO {
     public String updateCompany(Company company) {
         Scanner scanner = new Scanner(System.in);
         Map<Integer, Object> params = new HashMap();
-        System.out.println("Please Enter A New Name: ");
-        System.out.print("> ");
-        String Name = scanner.next();
-        System.out.println("Please Enter A New Email: ");
-        System.out.print("> ");
-        String Email = scanner.next();
-        System.out.println("Please Enter A New Password: ");
-        System.out.print("> ");
-        String Password = scanner.next();
-        params.put(1, Name);
-        params.put(2, Email);
-        params.put(3, Password);
+        params.put(1, company.getName());
+        params.put(2, company.getEmail());
+        params.put(3, company.getPassword());
         params.put(4, company.getEmail());
         params.put(5, company.getPassword());
         DB_Utilities.RunCommand(Company_Commands.updateCompany, params);

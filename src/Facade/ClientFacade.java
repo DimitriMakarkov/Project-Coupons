@@ -3,11 +3,18 @@ package Facade;
 import DAO.CompanyDAO;
 import DAO.CouponsDAO;
 import DAO.CustomersDAO;
+import DBDAO.CompaniesDBDAO;
+import DBDAO.CouponsDBDAO;
+import DBDAO.CustomersDBDAO;
 
 public abstract class ClientFacade {
-    protected CompanyDAO companyDAO;
+//    protected CompanyDAO companyDAO;
     protected CustomersDAO customersDAO;
-    protected CouponsDAO couponsDAO;
+//    protected CouponsDAO couponsDAO;
+
+    protected CompaniesDBDAO companiesDBDAO= new CompaniesDBDAO();
+    protected CustomersDBDAO customersDBDAO;
+    protected CouponsDBDAO couponsDBDAO = new CouponsDBDAO();
 
     public abstract boolean Login(String Email, String Password);
 

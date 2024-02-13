@@ -18,53 +18,55 @@ public class AdminFacade extends ClientFacade{
     }
 
     public void addCompany(Company company){
-        if (companyDAO.isCompanyDuplicate(company.getName(),company.getEmail())){
+        if (companiesDBDAO.isCompanyDuplicate(company.getName(),company.getEmail())){
             System.out.println("Please enter a different name or email ");
+
         }
         else {
-            companyDAO.addCompany(company);
+            companiesDBDAO.addCompany(company);
         }
     }
 
     public void updateCompany(Company company){
-        companyDAO.updateCompanyEP(company);
+        companiesDBDAO.updateCompanyEP(company);
     }
 
     public void deleteCompany(int CompanyID){
-        couponsDAO.deleteCompanyHistory(CompanyID);
+        couponsDBDAO.deleteCompanyHistory(CompanyID);
+        companiesDBDAO.deleteCompany(CompanyID);
     }
 
-    public ArrayList<Company> getAllCompanies(){
-        return companyDAO.getAllCompanies();
-    }
-
-    public Company getOneCompany(int CompanyID){
-        return companyDAO.getOneCompany(CompanyID);
-    }
-
-    public void addCustomer(Customer customer){
-            if (customersDAO.isCustomerDuplicate(customer.getEmail())){
-                System.out.println("Customer With The Same Email Exists");
-            }
-            else {
-                customersDAO.addCustomer(customer);
-            }
-
-    }
-
-    public void updateCustomer(Customer customer){
-        customersDAO.updateCustomer(customer);
-    }
-
-    public void deleteCustomer(int CustomerID){
-        couponsDAO.deleteCustomerHistory(CustomerID);
-    }
-
-    public ArrayList<Customer> getAllCustomers(){
-        return customersDAO.getAllCustomers();
-    }
-
-    public Customer getOneCustomer(int CustomerID){
-        return customersDAO.getOneCustomer(CustomerID);
-    }
+//    public ArrayList<Company> getAllCompanies(){
+//        return companyDAO.getAllCompanies();
+//    }
+//
+//    public Company getOneCompany(int CompanyID){
+//        return companyDAO.getOneCompany(CompanyID);
+//    }
+//
+//    public void addCustomer(Customer customer){
+//            if (customersDAO.isCustomerDuplicate(customer.getEmail())){
+//                System.out.println("Customer With The Same Email Exists");
+//            }
+//            else {
+//                customersDAO.addCustomer(customer);
+//            }
+//
+//    }
+//
+//    public void updateCustomer(Customer customer){
+//        customersDAO.updateCustomer(customer);
+//    }
+//
+//    public void deleteCustomer(int CustomerID){
+//        couponsDAO.deleteCustomerHistory(CustomerID);
+//    }
+//
+//    public ArrayList<Customer> getAllCustomers(){
+//        return customersDAO.getAllCustomers();
+//    }
+//
+//    public Customer getOneCustomer(int CustomerID){
+//        return customersDAO.getOneCustomer(CustomerID);
+//    }
 }

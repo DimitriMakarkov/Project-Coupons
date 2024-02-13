@@ -5,7 +5,7 @@ public class Company_Commands {
             "SELECT count(*) AS RESULT FROM `projectcoupons`.`companies` WHERE EMAIL = ? AND PASSWORD = ?;";
 
     public static final String isCompanyDuplicate =
-            "SELECT count(*) AS count FROM `projectcoupons`.`companies` WHERE NAME = ? OR EMAIL = ?;";
+            "SELECT count(*) AS RESULT FROM `projectcoupons`.`companies` WHERE NAME = ? OR EMAIL = ?;";
     public static final String addCompany =
             "INSERT INTO `projectcoupons`.`companies` VALUES(?,?,?,?);";
     public static final String updateCompany =
