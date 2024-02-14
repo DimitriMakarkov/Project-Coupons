@@ -21,7 +21,7 @@ public class Tester {
 //        CouponExpirationDaily Thread = new CouponExpirationDaily();
 //        Thread.run();
         Company company = new Company("test Company","test@gmail.com","12345678");
-        Customer customer = new Customer("Dima","Makarkov","dima@gmail.com","211");
+        Customer customer = new Customer("first","last","email@gmail.com","211");
         ClientFacade userTest = LoginManager.getInstance().Login("admin@admin.com", "admin", ClientType.Administrator);
         if (userTest instanceof AdminFacade){
 

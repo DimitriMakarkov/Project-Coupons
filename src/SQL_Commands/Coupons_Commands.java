@@ -14,7 +14,7 @@ public class Coupons_Commands {
 
     public static final String deleteCompanyHistory =
             "DELETE FROM `projectcoupons`.`customers_vs_coupons` " +
-                    "WHERE ID IN (SELECT ID FROM `projectcoupons`.`coupons` WHERE COMPANY_ID = ?);" +
+                    "WHERE ID IN (SELECT ID FROM `projectcoupons`.`coupons` WHERE COMPANY_ID = ?); " +
                     "DELETE FROM `projectcoupons`.`coupons` WHERE COMPANY_ID = ?;";
 
     public static final String deleteCustomerHistory =

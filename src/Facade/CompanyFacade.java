@@ -16,8 +16,8 @@ public class CompanyFacade extends ClientFacade{
 
     @Override
     public boolean Login(String Email, String Password) {
-        if (companiesDBDAO.isCompanyExists(Email,Password)){
-            CompanyID=companiesDBDAO.getCompanyID(Email,Password);
+        if (companyDAO.isCompanyExists(Email,Password)){
+            CompanyID=companyDAO.getCompanyID(Email,Password);
             return true;
         }
         return false;

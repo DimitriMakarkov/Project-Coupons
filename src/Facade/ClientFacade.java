@@ -8,13 +8,10 @@ import DBDAO.CouponsDBDAO;
 import DBDAO.CustomersDBDAO;
 
 public abstract class ClientFacade {
-//    protected CompanyDAO companyDAO;
-    protected CustomersDAO customersDAO;
-//    protected CouponsDAO couponsDAO;
+    protected CompanyDAO companyDAO = new CompaniesDBDAO();
+    protected CustomersDAO customersDAO = new CustomersDBDAO();
+    protected CouponsDAO couponsDAO = new CouponsDBDAO();
 
-    protected CompaniesDBDAO companiesDBDAO= new CompaniesDBDAO();
-    protected CustomersDBDAO customersDBDAO;
-    protected CouponsDBDAO couponsDBDAO = new CouponsDBDAO();
 
     public abstract boolean Login(String Email, String Password);
 
