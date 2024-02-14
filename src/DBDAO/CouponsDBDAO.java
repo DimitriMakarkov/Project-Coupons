@@ -29,16 +29,15 @@ public class CouponsDBDAO implements CouponsDAO {
 
     public String addCoupon(Coupons coupon) {
         Map<Integer, Object> params = new HashMap();
-        params.put(1, coupon.getID());
-        params.put(2, coupon.getCompanyID());
-        params.put(3, coupon.getCategoryID());
-        params.put(4, coupon.getTitle());
-        params.put(5, coupon.getDescription());
-        params.put(6, coupon.getStartDate());
-        params.put(7, coupon.getEndDate());
-        params.put(8, coupon.getAmount());
-        params.put(9, coupon.getPrice());
-        params.put(10, coupon.getImage());
+        params.put(1, coupon.getCompanyID());
+        params.put(2, coupon.getCategoryID());
+        params.put(3, coupon.getTitle());
+        params.put(4, coupon.getDescription());
+        params.put(5, coupon.getStartDate());
+        params.put(6, coupon.getEndDate());
+        params.put(7, coupon.getAmount());
+        params.put(8, coupon.getPrice());
+        params.put(9, coupon.getImage());
         DB_Utilities.RunCommand(Coupons_Commands.addCoupon, params);
         System.out.println("The Coupon Has Successfully Been Added!");
         return null;
@@ -79,7 +78,7 @@ public class CouponsDBDAO implements CouponsDAO {
         params.put(6, Amount);
         params.put(7, Price);
         params.put(8, Image);
-        params.put(9, coupon.getID());
+//        params.put(9, coupon.getID());
         DB_Utilities.RunCommand(Coupons_Commands.updateCoupon, params);
         System.out.println("The Coupon Has Been Updated!");
         return null;
@@ -197,17 +196,27 @@ public class CouponsDBDAO implements CouponsDAO {
         public void deleteCompanyHistory(int CompanyID){
             Map<Integer, Object> params = new HashMap();
             params.put(1,CompanyID);
-            params.put(2,CompanyID);
-            DB_Utilities.RunCommand(Coupons_Commands.deleteCompanyHistory,params);
-            System.out.println("The Company's Coupons And History Has Been Deleted");
+//            params.put(2,CompanyID);
+            if(DB_Utilities.RunCommand(Coupons_Commands.deleteCompanyHistory,params)){
+                DB_Utilities.RunCommand(Coupons_Commands.deleteCompanyCoupons,params);
+                System.out.println("The Company's Coupons And History Has Been Deleted");
+            }
+            else {
+                System.out.println("The Company's Coupons And History Have Not Been Deleted");
+            }
         }
 
         public void deleteCustomerHistory(int CustomerID){
             Map<Integer, Object> params = new HashMap();
             params.put(1,CustomerID);
-            params.put(2,CustomerID);
-            DB_Utilities.RunCommandWithParameter(Coupons_Commands.deleteCustomerHistory,params);
-            System.out.println("The Customer's Coupons And History Has Been Deleted");
+            if(DB_Utilities.RunCommand(Coupons_Commands.deleteCustomerHistory,params)){
+                DB_Utilities.RunCommand(Coupons_Commands.deleteCustomerCoupons,params);
+                System.out.println("The Customer's Coupons And History Has Been Deleted");
+
+            }
+            else {
+                System.out.println("The Customer's Coupons And History Has Not Been Deleted");
+            }
         }
 
         public void deleteCouponHistory(int CouponID){

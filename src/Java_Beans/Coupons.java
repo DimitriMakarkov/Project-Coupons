@@ -18,8 +18,7 @@ public class Coupons {
     private double Price;
     private String Image;
 
-//    public Coupons(int ID, int companyID, int categoryID, String title, String description, Date startDate, Date endDate, int amount, double price, String image) {
-//        this.ID = ID;
+//    public Coupons( int companyID, int categoryID, String title, String description, Date startDate, Date endDate, int amount, double price, String image) {
 //        this.CompanyID = companyID;
 //        this.CategoryID = categoryID;
 //        this.Title = title;

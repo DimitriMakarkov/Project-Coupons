@@ -116,6 +116,7 @@ public class CompaniesDBDAO implements CompanyDAO {
                 String Password = results.getString("Password");
                 company = new Company(Name, Email, Password);//removed id
             }
+            System.out.println(company);
             return company;
         } catch (SQLException e) {
             throw new RuntimeException(e);

@@ -60,6 +60,7 @@ public class AdminFacade extends ClientFacade{
 
     public void deleteCustomer(int CustomerID){
         couponsDAO.deleteCustomerHistory(CustomerID);
+        customersDAO.deleteCustomer(CustomerID);
     }
 
     public ArrayList<Customer> getAllCustomers(){

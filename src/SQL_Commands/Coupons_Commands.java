@@ -12,15 +12,19 @@ public class Coupons_Commands {
     public static final String deleteCoupon =
             "DELETE FROM `projectcoupons`.`coupons` WHERE ID=?;";
 
+    public static final String deleteCompanyCoupons =
+            "DELETE FROM `projectcoupons`.`coupons` WHERE COMPANY_ID = ?;";
+
     public static final String deleteCompanyHistory =
-            "DELETE FROM `projectcoupons`.`customers_vs_coupons` " +
-                    "WHERE ID IN (SELECT ID FROM `projectcoupons`.`coupons` WHERE COMPANY_ID = ?); " +
-                    "DELETE FROM `projectcoupons`.`coupons` WHERE COMPANY_ID = ?;";
+    "DELETE FROM `projectcoupons`.`customers_vs_coupons` WHERE COUPON_ID IN " +
+            "(SELECT ID FROM `projectcoupons`.`coupons` WHERE COMPANY_ID = ?);";
+
+    public static final String deleteCustomerCoupons =
+            "DELETE FROM `projectcoupons`.`customers` WHERE ID = ?";
 
     public static final String deleteCustomerHistory =
             "DELETE FROM `projectcoupons`.`customers_vs_coupons`" +
-                    "WHERE CUSTOMERS_ID IN (SELECT ID FROM `projectcoupons`.`customers` WHERE ID = ?);" +
-                    "DELETE FROM `projectcoupons`.`customers` WHERE ID = ?";
+                    "WHERE CUSTOMERS_ID IN (SELECT ID FROM `projectcoupons`.`customers` WHERE ID = ?);";
 
     public static final String deleteCouponHistory =
             "DELETE FROM `projectcoupons`.`customers_vs_coupons`" +
