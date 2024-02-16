@@ -27,13 +27,32 @@ public class LoginManager {
     public ClientFacade Login(String Email, String Password, ClientType Type) {
         switch (Type) {
             case Administrator:
-                return new AdminFacade();
-
+                AdminFacade admin = new AdminFacade();
+                if(admin.Login(Email,Password)){
+                    System.out.println("Admin Logged in Successfully!");
+                    return admin;
+                }
+                else {
+                    System.out.println("Login ERROR");
+                }
             case Company:
-                return new CompanyFacade();
-
+                CompanyFacade company = new CompanyFacade();
+                if(company.Login(Email,Password)){
+                    System.out.println("Company Logged in Successfully!");
+                    return company;
+                }
+                else {
+                    System.out.println("Login ERROR");
+                }
             case Customer:
-                return new CustomerFacade();
+                CustomerFacade customer = new CustomerFacade();
+                if (customer.Login(Email,Password)){
+                    System.out.println("Customer Logged in Successfully!");
+                    return customer;
+                }
+                else {
+                    System.out.println("Login ERROR");
+                }
         }
         return null;
     }

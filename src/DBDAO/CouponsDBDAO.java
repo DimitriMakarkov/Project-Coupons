@@ -7,6 +7,7 @@ import Java_Beans.Coupons;
 import SQL_Commands.Coupons_Commands;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.*;
 
 public class CouponsDBDAO implements CouponsDAO {
@@ -127,7 +128,60 @@ public class CouponsDBDAO implements CouponsDAO {
                 coupons.add(new Coupons(ID, ComapnyID, CategoryID, Title,
                         Description, StartDate, EndDate, Amount, Price, Image));
             }
-            coupons.forEach(System.out::println);
+            return coupons;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public ArrayList<Coupons> getCategoryCompanyCoupons(int CompanyID,Category category) {
+        ArrayList<Coupons> coupons = new ArrayList();
+        Map<Integer, Object> params = new HashMap();
+        params.put(1,CompanyID);
+        params.put(2,category.name());
+        ResultSet results = DB_Utilities.RunCommandWithResult(Coupons_Commands.getCategoryComapnyCoupons,params);
+        try {
+            while (results.next()) {
+                int ID = results.getInt(1);
+                int ComapnyID = results.getInt(2);
+                int CategoryID = results.getInt(3);
+                String Title = results.getString(4);
+                String Description = results.getString(5);
+                Date StartDate = results.getDate(6);
+                Date EndDate = results.getDate(7);
+                int Amount = results.getInt(8);
+                double Price = results.getDouble(9);
+                String Image = results.getString(10);
+                coupons.add(new Coupons(ID, ComapnyID, CategoryID, Title,
+                        Description, StartDate, EndDate, Amount, Price, Image));
+            }
+            return coupons;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public ArrayList<Coupons> getMaxPriceCompanyCoupons(int CompanyID, double MaxPrice) {
+        ArrayList<Coupons> coupons = new ArrayList();
+        Map<Integer, Object> params = new HashMap();
+        params.put(1,CompanyID);
+        params.put(2,MaxPrice);
+        ResultSet results = DB_Utilities.RunCommandWithResult(Coupons_Commands.getMaxPriceCompanyCoupons,params);
+        try {
+            while (results.next()) {
+                int ID = results.getInt(1);
+                int ComapnyID = results.getInt(2);
+                int CategoryID = results.getInt(3);
+                String Title = results.getString(4);
+                String Description = results.getString(5);
+                Date StartDate = results.getDate(6);
+                Date EndDate = results.getDate(7);
+                int Amount = results.getInt(8);
+                double Price = results.getDouble(9);
+                String Image = results.getString(10);
+                coupons.add(new Coupons(ID, ComapnyID, CategoryID, Title,
+                        Description, StartDate, EndDate, Amount, Price, Image));
+            }
             return coupons;
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -187,9 +241,12 @@ public class CouponsDBDAO implements CouponsDAO {
     }
 
         public String deleteCoupon(int CouponID) {
-//        Map<Integer, Object> params = new HashMap();
-        DB_Utilities.RunCommandWithParameter(Coupons_Commands.deleteCoupon, CouponID);
-        System.out.println("The Coupon Has Been Deleted");
+        Map<Integer, Object> params = new HashMap();
+        params.put(1,CouponID);
+        if(DB_Utilities.RunCommand(Coupons_Commands.deleteCoupon, params)){
+            System.out.println("The Coupon Has Been Deleted");
+        }
+        System.out.println("The Coupon Has Not Been Deleted");
         return null;
     }
 
@@ -222,9 +279,13 @@ public class CouponsDBDAO implements CouponsDAO {
         public void deleteCouponHistory(int CouponID){
                 Map<Integer, Object> params = new HashMap();
                 params.put(1,CouponID);
-                params.put(2,CouponID);
-                DB_Utilities.RunCommandWithParameter(Coupons_Commands.deleteCouponHistory,params);
-            System.out.println("The Coupon And Coupon History Has Been Deleted");
+                if(DB_Utilities.RunCommand(Coupons_Commands.deleteCouponHistory,params)){
+                    DB_Utilities.RunCommand(Coupons_Commands.deleteCoupon,params);
+                    System.out.println("The Coupon And Coupon History Has Been Deleted");
+                }
+                else {
+                    System.out.println("The Coupon And Coupon History Has Not Been Deleted");
+                }
         }
 
     public void deleteExpiredCoupons() {

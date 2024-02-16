@@ -3,6 +3,7 @@ import Java_Beans.Category;
 import Java_Beans.Coupons;
 import Java_Beans.Company;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 
@@ -12,7 +13,6 @@ public class CompanyFacade extends ClientFacade{
     public CompanyFacade() {
 
     }
-
 
     @Override
     public boolean Login(String Email, String Password) {
@@ -38,22 +38,25 @@ public class CompanyFacade extends ClientFacade{
     }
 
     public ArrayList<Coupons> getCompanyCoupons(){
-        return couponsDAO.getAllCompanyCoupons(CompanyID);
+        ArrayList<Coupons> coupons = couponsDAO.getAllCompanyCoupons(CompanyID);
+        coupons.forEach(System.out::println);
+        return coupons;
     }
 
     public ArrayList<Coupons> getCompanyCoupons(Category category){
-        ArrayList<Coupons> coupons=couponsDAO.getAllCoupons();
-        ArrayList<Coupons> CategoryCoupons = new ArrayList<>();
-        CategoryCoupons = coupons.stream().filter(FilterCoupons -> category.equals(FilterCoupons.getCategoryID()))
-                .collect(Collectors.toCollection(ArrayList::new));
-        return CategoryCoupons;
+        ArrayList<Coupons> coupons = couponsDAO.getCategoryCompanyCoupons(CompanyID,category);
+        coupons.forEach(System.out::println);
+        return coupons;
         }
     public ArrayList<Coupons> getCompanyCoupons(double maxPrice){
-        ArrayList<Coupons> coupons=couponsDAO.getAllCoupons();
-        ArrayList<Coupons> PriceCoupons = new ArrayList<>();
-        PriceCoupons = coupons.stream().filter(FilterCoupons -> FilterCoupons.getPrice()<=maxPrice)
-                .collect(Collectors.toCollection(ArrayList::new));
-        return PriceCoupons;
+//        ArrayList<Coupons> coupons=couponsDAO.getAllCoupons();
+//        ArrayList<Coupons> PriceCoupons = new ArrayList<>();
+//        PriceCoupons = coupons.stream().filter(FilterCoupons -> FilterCoupons.getPrice()<=maxPrice)
+//                .collect(Collectors.toCollection(ArrayList::new));
+//        return PriceCoupons;
+        ArrayList<Coupons> coupons = couponsDAO.getMaxPriceCompanyCoupons(CompanyID,maxPrice);
+        coupons.forEach(System.out::println);
+        return coupons;
     }
 
     public Company getCompanyDetails(){

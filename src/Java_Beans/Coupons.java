@@ -1,6 +1,8 @@
 package Java_Beans;
 
+import java.time.LocalDate;
 import java.util.Date;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -18,17 +20,17 @@ public class Coupons {
     private double Price;
     private String Image;
 
-//    public Coupons( int companyID, int categoryID, String title, String description, Date startDate, Date endDate, int amount, double price, String image) {
-//        this.CompanyID = companyID;
-//        this.CategoryID = categoryID;
-//        this.Title = title;
-//        this.Description = description;
-//        this.StartDate = startDate;
-//        this.EndDate = endDate;
-//        this.Amount = amount;
-//        this.Price = price;
-//        this.Image = image;
-//    }
+    public Coupons( int companyID, int categoryID, String title, String description, Date startDate, Date endDate, int amount, double price, String image) {
+        this.CompanyID = companyID;
+        this.CategoryID = categoryID;
+        this.Title = title;
+        this.Description = description;
+        this.StartDate = startDate;
+        this.EndDate = endDate;
+        this.Amount = amount;
+        this.Price = price;
+        this.Image = image;
+    }
 //
 //    public int getID() {
 //        return this.ID;

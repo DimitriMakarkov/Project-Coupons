@@ -3,9 +3,9 @@ package Java_Beans;
 import java.util.ArrayList;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
 public class Company {
     private int ID;
     private String Name;
@@ -13,10 +13,17 @@ public class Company {
     private String Password;
     private ArrayList<Coupons> Coupons;
 
-    public Company( String name, String email, String password) {//removed int id
+    public Company(String name, String email, String password) {//removed int id
         this.Name = name;
         this.Email = email;
         this.Password = password;
+    }
+    public Company (int id,String name, String email, String password,ArrayList<Coupons> coupons){
+        this.ID = id;
+        this.Name = name;
+        this.Email = email;
+        this.Password = password;
+        this.Coupons = coupons;
     }
 //
 //    public int getID() {

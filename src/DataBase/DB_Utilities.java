@@ -117,7 +117,6 @@ public class DB_Utilities {
                     throw new RuntimeException(e);
                 }
             });
-            System.out.println(preparedStatement);
             return preparedStatement.executeQuery();
         } catch (InterruptedException e) {
             throw new RuntimeException(e);

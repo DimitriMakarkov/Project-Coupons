@@ -28,9 +28,7 @@ public class Coupons_Commands {
 
     public static final String deleteCouponHistory =
             "DELETE FROM `projectcoupons`.`customers_vs_coupons`" +
-                    "WHERE COUPON_ID IN (SELECT ID FROM `projectcoupons`.`coupons` WHERE ID = ?);" +
-                    "DELETE FROM `projectcoupons`.`coupons` WHERE ID = ?";
-
+                    "WHERE COUPON_ID IN (SELECT ID FROM `projectcoupons`.`coupons` WHERE ID = ?);";
     public static final String deleteExpiredCoupons =
             "DELETE FROM `projectcoupons`.`customers_vs_coupons` " +
                     "WHERE COUPON_ID IN (SELECT ID FROM `projectcoupons`.`coupons` WHERE END_DATE < NOW()); " +
@@ -40,6 +38,12 @@ public class Coupons_Commands {
 
     public static final String getAllCompanyCoupons =
             "SELECT * FROM `projectcoupons`.`coupons` WHERE COMPANY_ID = ?;";
+
+    public static final String getCategoryComapnyCoupons =
+            "SELECT * FROM `projectcoupons`.`coupons` WHERE COMPANY_ID = ? AND TITLE =?;";
+
+    public static final String getMaxPriceCompanyCoupons =
+            "SELECT * FROM `projectcoupons`.`coupons` WHERE COMPANY_ID = ? AND PRICE<?;";
 
     public static final String getAllCustomerCoupons =
             "SELECT ID,COMPANY_ID,CATEGORY_ID,TITLE,DESCRIPTION,START_DATE,END_DATE,PRICE,IMAGE FROM `projectcoupons`.`customers_vs_coupons` as CVSC " +

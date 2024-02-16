@@ -4,6 +4,7 @@ import DAO.CompanyDAO;
 import DataBase.ConnectionPool;
 import DataBase.DB_Utilities;
 import Java_Beans.Company;
+import Java_Beans.Coupons;
 import SQL_Commands.Company_Commands;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -106,15 +107,20 @@ public class CompaniesDBDAO implements CompanyDAO {
     }
 
     public Company getOneCompany(int CompanyID) {
+        Map<Integer, Object> params = new HashMap();
+        params.put(1, CompanyID);
         Company company = null;
+        CouponsDBDAO couponsDBDAO = new CouponsDBDAO();
         try {
-            ResultSet results = DB_Utilities.RunCommandWithParameter(Company_Commands.getOneCompany, CompanyID);
+            ResultSet results = DB_Utilities.RunCommandWithResult(Company_Commands.getOneCompany, params);
             if (results.next()) {
                 int ID = results.getInt("ID");
                 String Name = results.getString("Name");
                 String Email = results.getString("Email");
                 String Password = results.getString("Password");
-                company = new Company(Name, Email, Password);//removed id
+                ArrayList<Coupons> coup =new ArrayList<>();
+                coup =couponsDBDAO.getAllCompanyCoupons(CompanyID);
+                company = new Company(ID,Name, Email, Password,coup);//removed id
             }
             System.out.println(company);
             return company;
@@ -128,11 +134,14 @@ public class CompaniesDBDAO implements CompanyDAO {
         params.put(1, Email);
         params.put(2, Password);
         try {
-            ResultSet results = DB_Utilities.RunCommandWithParameter(Company_Commands.getCompanyViaEmailAndPass,params);
-                int ID = results.getInt("ID");
-                return ID;
+            ResultSet results = DB_Utilities.RunCommandWithResult(Company_Commands.getCompanyViaEmailAndPass,params);
+            while (results.next()) {
+                return results.getInt("ID");
+            }
+            return 0;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+
     }
 }

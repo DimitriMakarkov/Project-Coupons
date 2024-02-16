@@ -1,5 +1,6 @@
 package DAO;
 
+import Java_Beans.Category;
 import Java_Beans.Coupons;
 
 import java.util.ArrayList;
@@ -25,6 +26,10 @@ public interface CouponsDAO {
     ArrayList<Coupons> getAllCoupons();
 
     ArrayList<Coupons> getAllCompanyCoupons(int CompanyID);
+
+    ArrayList<Coupons> getCategoryCompanyCoupons(int CompanyID,Category category);
+
+    ArrayList<Coupons> getMaxPriceCompanyCoupons(int CompanyID,double MaxPrice);
 
     ArrayList<Coupons> getAllCutomerCoupons(int CustomerID);
 
