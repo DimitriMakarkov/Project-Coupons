@@ -15,5 +15,6 @@ public class CreateTablesDBDAO implements CreateTablesDAO {
         DB_Utilities.RunCommand(DB_TableCreation.createCustomers_vs_CouponsTable);
         DB_Utilities.RunCommand(DB_TableCreation.couponsForiegnKeys);
         DB_Utilities.RunCommand(DB_TableCreation.customer_vs_couponsForiegnKeys);
+        DB_Utilities.RunCommand(DB_TableCreation.createTableParameters);
     }
 }
