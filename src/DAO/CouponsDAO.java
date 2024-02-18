@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public interface CouponsDAO {
 
-    boolean isCompanyCouponExist(Coupons coupons,int CompanyID);
+    boolean isCompanyCouponExist(Coupons coupons, int CompanyID);
 
     String addCoupon(Coupons coupon);
 
@@ -27,13 +27,15 @@ public interface CouponsDAO {
 
     ArrayList<Coupons> getAllCompanyCoupons(int CompanyID);
 
-    ArrayList<Coupons> getCategoryCompanyCoupons(int CompanyID,Category category);
+    ArrayList<Coupons> getCategoryCompanyCoupons(int CompanyID, Category category);
 
-    ArrayList<Coupons> getMaxPriceCompanyCoupons(int CompanyID,double MaxPrice);
+    ArrayList<Coupons> getMaxPriceCompanyCoupons(int CompanyID, double MaxPrice);
 
     ArrayList<Coupons> getAllCutomerCoupons(int CustomerID);
 
-    ArrayList<Coupons> getCategoryCustomerCoupons(int CustomerID,Category category);
+    ArrayList<Coupons> getCategoryCustomerCoupons(int CustomerID, Category category);
+
+    ArrayList<Coupons> getMaxPriceCustomerCoupons(int CustomerID, double MaxPrice);
 
     Coupons getOneCoupon(int CouponID);
 
@@ -41,5 +43,5 @@ public interface CouponsDAO {
 
     void deleteCouponPurchase(int CustomerID, int CouponID);
 
-    void customerPurchaseCoupon(int CouponID,int CustomerID);
+    void customerPurchaseCoupon(int CouponID, int CustomerID);
 }

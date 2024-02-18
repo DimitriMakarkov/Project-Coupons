@@ -1,6 +1,7 @@
 package DAO;
 
 import Java_Beans.Company;
+
 import java.util.ArrayList;
 
 public interface CompanyDAO {
@@ -8,7 +9,7 @@ public interface CompanyDAO {
 
     boolean isCompanyExists(String Email, String Password);
 
-    boolean isCompanyDuplicate(String Name,String Email);
+    boolean isCompanyDuplicate(String Name, String Email);
 
     String addCompany(Company company);
 
@@ -20,5 +21,5 @@ public interface CompanyDAO {
 
     Company getOneCompany(int CompanyID);
 
-    int getCompanyID(String Email,String Password);
+    int getCompanyID(String Email, String Password);
 }

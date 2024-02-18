@@ -22,7 +22,7 @@ public class ConnectionPool {
     }
 
     private void OpenAllConnection() throws SQLException {
-        for(int counter = 0; counter < 10; ++counter) {
+        for (int counter = 0; counter < 10; ++counter) {
             Connection Hibur = DriverManager.getConnection("jdbc:mysql://localhost:3306", "root", "12345678");
             Hiburim.push(Hibur);
         }
@@ -32,7 +32,7 @@ public class ConnectionPool {
     public static ConnectionPool getInstance() {
         if (instance == null) {
             Class var0 = ConnectionPool.class;
-            synchronized(ConnectionPool.class) {
+            synchronized (ConnectionPool.class) {
                 if (instance == null) {
                     instance = new ConnectionPool();
                 }
@@ -43,27 +43,26 @@ public class ConnectionPool {
     }
 
     public void CloseAllConnections() throws InterruptedException {
-        synchronized(Hiburim) {
-            while(Hiburim.size() < 10) {
+        synchronized (Hiburim) {
+            while (Hiburim.size() < 10) {
                 Hiburim.wait();
             }
-
             Hiburim.removeAllElements();
         }
     }
 
     public Connection getConnection() throws InterruptedException {
-        synchronized(Hiburim) {
+        synchronized (Hiburim) {
             if (Hiburim.isEmpty()) {
                 Hiburim.wait();
             }
 
-            return (Connection)Hiburim.pop();
+            return (Connection) Hiburim.pop();
         }
     }
 
     public void ReturnConnection(Connection Hibur) {
-        synchronized(Hiburim) {
+        synchronized (Hiburim) {
             Hiburim.push(Hibur);
             Hiburim.notify();
         }

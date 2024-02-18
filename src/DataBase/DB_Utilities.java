@@ -34,17 +34,17 @@ public class DB_Utilities {
             Units.forEach((key, value) -> {
                 try {
                     if (value instanceof Integer) {
-                        preparedStatement.setInt(key, (Integer)value);
+                        preparedStatement.setInt(key, (Integer) value);
                     } else if (value instanceof String) {
                         preparedStatement.setString(key, String.valueOf(value));
                     } else if (value instanceof Date) {
-                        preparedStatement.setDate(key, (Date)value);
+                        preparedStatement.setDate(key, (Date) value);
                     } else if (value instanceof Double) {
-                        preparedStatement.setDouble(key, (Double)value);
+                        preparedStatement.setDouble(key, (Double) value);
                     } else if (value instanceof Boolean) {
-                        preparedStatement.setBoolean(key, (Boolean)value);
+                        preparedStatement.setBoolean(key, (Boolean) value);
                     } else if (value instanceof Float) {
-                        preparedStatement.setFloat(key, (Float)value);
+                        preparedStatement.setFloat(key, (Float) value);
                     }
 
                 } catch (SQLException e) {
@@ -93,25 +93,25 @@ public class DB_Utilities {
         }
     }
 
-    public static ResultSet RunCommandWithResult(String UserCommand,Map<Integer,Object> params){
+    public static ResultSet RunCommandWithResult(String UserCommand, Map<Integer, Object> params) {
         Connection Hibur = null;
         try {
             Hibur = ConnectionPool.getInstance().getConnection();
             PreparedStatement preparedStatement = Hibur.prepareStatement(UserCommand);
-            params.forEach((key,value)->{
+            params.forEach((key, value) -> {
                 try {
-                    if (value instanceof Integer){
-                        preparedStatement.setInt(key,(Integer)value);
-                    } else if (value instanceof String){
-                        preparedStatement.setString(key,String.valueOf(value));
-                    } else if (value instanceof Date){
-                        preparedStatement.setDate(key,(Date)value);
-                    } else if (value instanceof Double){
-                        preparedStatement.setDouble(key, (Double)value);
-                    } else if (value instanceof Boolean){
-                        preparedStatement.setBoolean(key, (Boolean)value);
-                    } else if (value instanceof Float){
-                        preparedStatement.setFloat(key, (Float)value);
+                    if (value instanceof Integer) {
+                        preparedStatement.setInt(key, (Integer) value);
+                    } else if (value instanceof String) {
+                        preparedStatement.setString(key, String.valueOf(value));
+                    } else if (value instanceof Date) {
+                        preparedStatement.setDate(key, (Date) value);
+                    } else if (value instanceof Double) {
+                        preparedStatement.setDouble(key, (Double) value);
+                    } else if (value instanceof Boolean) {
+                        preparedStatement.setBoolean(key, (Boolean) value);
+                    } else if (value instanceof Float) {
+                        preparedStatement.setFloat(key, (Float) value);
                     }
                 } catch (SQLException e) {
                     throw new RuntimeException(e);

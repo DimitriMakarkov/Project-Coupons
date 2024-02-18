@@ -19,5 +19,5 @@ public interface CustomersDAO {
 
     Customer getOneCustomer(int CustomerID);
 
-    int getCustomerViaEmailAndPass(String Email,String Password);
+    int getCustomerViaEmailAndPass(String Email, String Password);
 }

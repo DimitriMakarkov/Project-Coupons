@@ -1,9 +1,10 @@
 package Job;
 
 import DAO.CouponsDAO;
+import DBDAO.CouponsDBDAO;
 
 public class CouponExpirationDaily implements Runnable {
-    private CouponsDAO couponsDAO;
+    private CouponsDAO couponsDAO = new CouponsDBDAO();
     private boolean quit;
 
     public CouponExpirationDaily() {
@@ -12,7 +13,7 @@ public class CouponExpirationDaily implements Runnable {
     public void run() {
         try {
             while (!quit) {
-                couponsDAO=null;
+                couponsDAO = null;
                 couponsDAO.deleteExpiredCoupons();
                 Thread.sleep(24 * 60 * 60 * 1000);
             }

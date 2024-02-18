@@ -36,7 +36,7 @@ public class CompaniesDBDAO implements CompanyDAO {
         Map<Integer, Object> params = new HashMap();
         params.put(1, Name);
         params.put(2, Email);
-        ResultSet result = DB_Utilities.RunCommandWithResult(Company_Commands.isCompanyDuplicate,params);
+        ResultSet result = DB_Utilities.RunCommandWithResult(Company_Commands.isCompanyDuplicate, params);
         try {
             while (result.next()) {
                 return result.getInt("RESULT") == 1;
@@ -54,12 +54,10 @@ public class CompaniesDBDAO implements CompanyDAO {
         params.put(3, company.getEmail());
         params.put(4, company.getPassword());
         DB_Utilities.RunCommand(Company_Commands.addCompany, params);
-        System.out.println("The Company Has Successfully Been Added!");
         return null;
     }
 
     public String updateCompany(Company company) {
-        Scanner scanner = new Scanner(System.in);
         Map<Integer, Object> params = new HashMap();
         params.put(1, company.getName());
         params.put(2, company.getEmail());
@@ -67,21 +65,20 @@ public class CompaniesDBDAO implements CompanyDAO {
         params.put(4, company.getEmail());
         params.put(5, company.getPassword());
         DB_Utilities.RunCommand(Company_Commands.updateCompany, params);
-        System.out.println("The Company Has Been Updated!");
         return null;
     }
 
-    public void updateCompanyEP(Company company){
+    public void updateCompanyEP(Company company) {
         Map<Integer, Object> params = new HashMap();
         params.put(1, company.getEmail());
         params.put(2, company.getPassword());
-        params.put(3,company.getName());
-        DB_Utilities.RunCommand(Company_Commands.updateCompanyEP,params);
-        System.out.println("The Company Has Been Updated!");
+        params.put(3, company.getName());
+        DB_Utilities.RunCommand(Company_Commands.updateCompanyEP, params);
     }
 
     public ArrayList<Company> getAllCompanies() {
         ArrayList<Company> companies = new ArrayList();
+        CouponsDBDAO couponsDBDAO = new CouponsDBDAO();
         ResultSet results = DB_Utilities.RunCommandFromResult(Company_Commands.getAllCompanies);
         try {
             while (results.next()) {
@@ -89,7 +86,9 @@ public class CompaniesDBDAO implements CompanyDAO {
                 String name = results.getString(2);
                 String email = results.getString(3);
                 String password = results.getString(4);
-                companies.add(new Company(name, email, password));//removed id
+                ArrayList<Coupons> coup = new ArrayList<>();
+                coup = couponsDBDAO.getAllCompanyCoupons(id);
+                companies.add(new Company(id, name, email, password, coup));
             }
             companies.forEach(System.out::println);
             return companies;
@@ -102,7 +101,6 @@ public class CompaniesDBDAO implements CompanyDAO {
         Map<Integer, Object> params = new HashMap();
         params.put(1, CompanyID);
         DB_Utilities.RunCommand(Company_Commands.deleteComapny, params);
-        System.out.println("The Company Has Been Deleted");
         return null;
     }
 
@@ -118,9 +116,9 @@ public class CompaniesDBDAO implements CompanyDAO {
                 String Name = results.getString("Name");
                 String Email = results.getString("Email");
                 String Password = results.getString("Password");
-                ArrayList<Coupons> coup =new ArrayList<>();
-                coup =couponsDBDAO.getAllCompanyCoupons(CompanyID);
-                company = new Company(ID,Name, Email, Password,coup);//removed id
+                ArrayList<Coupons> coup = new ArrayList<>();
+                coup = couponsDBDAO.getAllCompanyCoupons(CompanyID);
+                company = new Company(ID, Name, Email, Password, coup);//removed id
             }
             System.out.println(company);
             return company;
@@ -129,12 +127,12 @@ public class CompaniesDBDAO implements CompanyDAO {
         }
     }
 
-    public int getCompanyID(String Email,String Password){
+    public int getCompanyID(String Email, String Password) {
         Map<Integer, Object> params = new HashMap();
         params.put(1, Email);
         params.put(2, Password);
         try {
-            ResultSet results = DB_Utilities.RunCommandWithResult(Company_Commands.getCompanyViaEmailAndPass,params);
+            ResultSet results = DB_Utilities.RunCommandWithResult(Company_Commands.getCompanyViaEmailAndPass, params);
             while (results.next()) {
                 return results.getInt("ID");
             }

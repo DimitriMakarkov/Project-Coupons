@@ -55,6 +55,10 @@ public class Coupons_Commands {
     public static final String getCategoryCustomerCoupons =
             "SELECT * FROM `projectcoupons`.`coupons` WHERE ID IN" +
                     "(SELECT COUPON_ID FROM `projectcoupons`.`customers_vs_coupons` WHERE CUSTOMERS_ID=?) AND TITLE=?;";
+
+    public static final String getMaxPriceCustomerCoupons =
+            "SELECT * FROM `projectcoupons`.`coupons` WHERE ID IN" +
+                    "(SELECT COUPON_ID FROM `projectcoupons`.`customers_vs_coupons` WHERE CUSTOMERS_ID=?) AND PRICE<?;";
     public static final String getOneCoupon =
             "SELECT * FROM `projectcoupons`.`coupons` WHERE ID=?;";
 

@@ -6,6 +6,7 @@ import Java_Beans.Customer;
 import SQL_Commands.Company_Commands;
 import SQL_Commands.Coupons_Commands;
 import SQL_Commands.Customer_Commands;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
@@ -32,7 +33,7 @@ public class CustomersDBDAO implements CustomersDAO {
     public boolean isCustomerDuplicate(String Email) {
         Map<Integer, Object> params = new HashMap();
         params.put(1, Email);
-        ResultSet result = DB_Utilities.RunCommandWithResult(Customer_Commands.isCustomerDuplicate,params);
+        ResultSet result = DB_Utilities.RunCommandWithResult(Customer_Commands.isCustomerDuplicate, params);
         try {
             while (result.next()) {
                 return result.getInt("RESULT") == 1;
@@ -51,7 +52,6 @@ public class CustomersDBDAO implements CustomersDAO {
         params.put(4, customer.getEmail());
         params.put(5, customer.getPassword());
         DB_Utilities.RunCommand(Customer_Commands.addCustomer, params);
-        System.out.println("The Customer Has Successfully Been Added!");
         return null;
     }
 
@@ -65,7 +65,6 @@ public class CustomersDBDAO implements CustomersDAO {
         params.put(5, customer.getEmail());
         params.put(6, customer.getPassword());
         DB_Utilities.RunCommand(Customer_Commands.updateCustomer, params);
-        System.out.println("The Customer Has Been Updated!");
         return null;
     }
 
@@ -89,13 +88,12 @@ public class CustomersDBDAO implements CustomersDAO {
         }
     }
 
-        public String deleteCustomer(int CustomerID) {
+    public String deleteCustomer(int CustomerID) {
         Map<Integer, Object> params = new HashMap();
-        params.put(1,CustomerID);
-        if(DB_Utilities.RunCommand(Customer_Commands.deleteCustomer, params)){
+        params.put(1, CustomerID);
+        if (DB_Utilities.RunCommand(Customer_Commands.deleteCustomer, params)) {
             System.out.println("The Customer Has Been Deleted");
-        }
-        else {
+        } else {
             System.out.println("The Customer Has Not Been Deleted");
         }
         return null;
@@ -124,13 +122,13 @@ public class CustomersDBDAO implements CustomersDAO {
         Map<Integer, Object> params = new HashMap();
         params.put(1, Email);
         params.put(2, Password);
-            ResultSet results = DB_Utilities.RunCommandWithResult(Customer_Commands.getCustomerID,params);
-            try{
-                while (results.next()) {
-                    int ID = results.getInt("ID");
-                    return ID;
-                }
-                return 0;
+        ResultSet results = DB_Utilities.RunCommandWithResult(Customer_Commands.getCustomerID, params);
+        try {
+            while (results.next()) {
+                int ID = results.getInt("ID");
+                return ID;
+            }
+            return 0;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
