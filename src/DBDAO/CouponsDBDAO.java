@@ -213,6 +213,33 @@ public class CouponsDBDAO implements CouponsDAO {
         }
     }
 
+    public ArrayList<Coupons> getCategoryCustomerCoupons(int CustomerID, Category category) {
+        ArrayList<Coupons> coupons = new ArrayList();
+        Map<Integer, Object> params = new HashMap();
+        params.put(1,CustomerID);
+        params.put(2,category.name());
+        ResultSet results = DB_Utilities.RunCommandWithResult(Coupons_Commands.getCategoryCustomerCoupons,params);
+        try {
+            while (results.next()) {
+                int ID = results.getInt(1);
+                int ComapnyID = results.getInt(2);
+                int CategoryID = results.getInt(3);
+                String Title = results.getString(4);
+                String Description = results.getString(5);
+                Date StartDate = results.getDate(6);
+                Date EndDate = results.getDate(7);
+                int Amount = results.getInt(8);
+                double Price = results.getDouble(9);
+                String Image = results.getString(10);
+                coupons.add(new Coupons(ID, ComapnyID, CategoryID, Title,
+                        Description, StartDate, EndDate, Amount, Price, Image));
+            }
+            return coupons;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public ArrayList<Coupons> getAllCouponsByCategory(Category category) {
         ArrayList<Coupons> coupons = new ArrayList();
         if (category.equals("Food")){

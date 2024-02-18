@@ -124,10 +124,13 @@ public class CustomersDBDAO implements CustomersDAO {
         Map<Integer, Object> params = new HashMap();
         params.put(1, Email);
         params.put(2, Password);
-        try {
-            ResultSet results = DB_Utilities.RunCommandWithParameter(Customer_Commands.getCustomerID,params);
-            int ID = results.getInt("ID");
-            return ID;
+            ResultSet results = DB_Utilities.RunCommandWithResult(Customer_Commands.getCustomerID,params);
+            try{
+                while (results.next()) {
+                    int ID = results.getInt("ID");
+                    return ID;
+                }
+                return 0;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

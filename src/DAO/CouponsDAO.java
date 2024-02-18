@@ -33,6 +33,8 @@ public interface CouponsDAO {
 
     ArrayList<Coupons> getAllCutomerCoupons(int CustomerID);
 
+    ArrayList<Coupons> getCategoryCustomerCoupons(int CustomerID,Category category);
+
     Coupons getOneCoupon(int CouponID);
 
     void addCouponPurchase(int CustomerID, int CouponID);

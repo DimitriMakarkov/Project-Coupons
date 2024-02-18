@@ -23,31 +23,29 @@ public class CustomerFacade extends ClientFacade{
         return false;
     }
 
-//    public void PurchaseCoupon(Coupons coupons){
-//        couponsDAO.customerPurchaseCoupon(coupons.getID(),CustomerID);
-//    }
-//
-//
-//    public ArrayList<Coupons> getCustomerCoupons(){
-//        return couponsDAO.getAllCutomerCoupons(CustomerID);
-//    }
-//
-//    public ArrayList<Coupons> getCustomerCoupons(Category category){
-//        ArrayList<Coupons> coupons=couponsDAO.getAllCutomerCoupons(CustomerID);
-//        ArrayList<Coupons> CategoryCoupons = new ArrayList<>();
-//        CategoryCoupons = coupons.stream().filter(FilterCoupons -> category.equals(FilterCoupons.getCategoryID()))
-//                .collect(Collectors.toCollection(ArrayList::new));
-//        return CategoryCoupons;
-//    }
-//    public ArrayList<Coupons> getCustomerCoupons(double maxPrice){
-//        ArrayList<Coupons> coupons=couponsDAO.getAllCutomerCoupons(CustomerID);
-//        ArrayList<Coupons> PriceCoupons = new ArrayList<>();
-//        PriceCoupons = coupons.stream().filter(FilterCoupons -> FilterCoupons.getPrice()<=maxPrice)
-//                .collect(Collectors.toCollection(ArrayList::new));
-//        return PriceCoupons;
-//    }
-//
-//    public Customer getCustomerDetails(){
-//        return customersDAO.getOneCustomer(CustomerID);
-//    }
+    public void PurchaseCoupon(Coupons coupons){
+        couponsDAO.customerPurchaseCoupon(coupons.getID(),CustomerID);
+    }
+
+
+    public ArrayList<Coupons> getCustomerCoupons(){
+        return couponsDAO.getAllCutomerCoupons(CustomerID);
+    }
+
+    public ArrayList<Coupons> getCustomerCoupons(Category category){
+        ArrayList<Coupons> coupons = couponsDAO.getCategoryCustomerCoupons(CustomerID,category);
+        coupons.forEach(System.out::println);
+        return coupons;
+    }
+    public ArrayList<Coupons> getCustomerCoupons(double maxPrice){
+        ArrayList<Coupons> coupons=couponsDAO.getAllCutomerCoupons(CustomerID);
+        ArrayList<Coupons> PriceCoupons = new ArrayList<>();
+        PriceCoupons = coupons.stream().filter(FilterCoupons -> FilterCoupons.getPrice()<=maxPrice)
+                .collect(Collectors.toCollection(ArrayList::new));
+        return PriceCoupons;
+    }
+
+    public Customer getCustomerDetails(){
+        return customersDAO.getOneCustomer(CustomerID);
+    }
 }

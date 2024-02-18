@@ -49,11 +49,6 @@ public class CompanyFacade extends ClientFacade{
         return coupons;
         }
     public ArrayList<Coupons> getCompanyCoupons(double maxPrice){
-//        ArrayList<Coupons> coupons=couponsDAO.getAllCoupons();
-//        ArrayList<Coupons> PriceCoupons = new ArrayList<>();
-//        PriceCoupons = coupons.stream().filter(FilterCoupons -> FilterCoupons.getPrice()<=maxPrice)
-//                .collect(Collectors.toCollection(ArrayList::new));
-//        return PriceCoupons;
         ArrayList<Coupons> coupons = couponsDAO.getMaxPriceCompanyCoupons(CompanyID,maxPrice);
         coupons.forEach(System.out::println);
         return coupons;

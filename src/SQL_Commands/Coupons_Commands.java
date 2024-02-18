@@ -46,10 +46,15 @@ public class Coupons_Commands {
             "SELECT * FROM `projectcoupons`.`coupons` WHERE COMPANY_ID = ? AND PRICE<?;";
 
     public static final String getAllCustomerCoupons =
-            "SELECT ID,COMPANY_ID,CATEGORY_ID,TITLE,DESCRIPTION,START_DATE,END_DATE,PRICE,IMAGE FROM `projectcoupons`.`customers_vs_coupons` as CVSC " +
+            "SELECT ID,COMPANY_ID,CATEGORY_ID,TITLE,DESCRIPTION,START_DATE,END_DATE,PRICE,IMAGE FROM" +
+                    " `projectcoupons`.`customers_vs_coupons` as CVSC " +
                     "JOIN `projectcoupons`.`coupons` as CS " +
                     "ON CVSC.COUPON_ID=CS.ID " +
                     "WHERE CVSC.CUSTOMERS_ID =?;";
+
+    public static final String getCategoryCustomerCoupons =
+            "SELECT * FROM `projectcoupons`.`coupons` WHERE ID IN" +
+                    "(SELECT COUPON_ID FROM `projectcoupons`.`customers_vs_coupons` WHERE CUSTOMERS_ID=?) AND TITLE=?;";
     public static final String getOneCoupon =
             "SELECT * FROM `projectcoupons`.`coupons` WHERE ID=?;";
 
