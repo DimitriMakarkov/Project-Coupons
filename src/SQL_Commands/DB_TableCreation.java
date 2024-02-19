@@ -78,7 +78,7 @@ public static String customer_vs_couponsForiegnKeys =
                 "  ON UPDATE NO ACTION;";
 
 public static String createTableParameters =
-        "INSERT INTO `projectcoupons`.`categories` (`ID`, `NAME`) VALUES ('1', 'Food');" +
+                "INSERT INTO `projectcoupons`.`categories` (`ID`, `NAME`) VALUES ('1', 'Food');" +
                 " INSERT INTO `projectcoupons`.`categories` (`ID`, `NAME`) VALUES ('2', 'Electricity');" +
                 " INSERT INTO `projectcoupons`.`categories` (`ID`, `NAME`) VALUES ('3', 'Restaurant');" +
                 " INSERT INTO `projectcoupons`.`categories` (`ID`, `NAME`) VALUES ('4', 'Vacation');" +

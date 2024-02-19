@@ -11,6 +11,8 @@ import Job.CouponExpirationDaily;
 import Login.ClientType;
 import Login.LoginManager;
 
+import java.sql.Date;
+
 
 public class Tester {
 
@@ -19,29 +21,44 @@ public class Tester {
     }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
     public static void testAll() {
-//        CouponExpirationDaily Thread = new CouponExpirationDaily();
-//        Thread.run();
+       Thread dailyTask = new Thread(new CouponExpirationDaily());
+       dailyTask.start();
         CreateTablesDBDAO createTablesDBDAO = new CreateTablesDBDAO();
         createTablesDBDAO.createAllTables();
-//        Company company = new Company("test Company", "test@gmail.com", "12345678");
-//        Customer customer = new Customer("firsttttttt", "last", "email@gmail.com", "211");
-//        Coupons coupons = new Coupons(3,3,"Restaurant","20% off",Startdate,Enddate,2,55,null);
-//        ClientFacade userAdminTest = LoginManager.getInstance().Login("admin@admin.com", "admin", ClientType.Administrator);
-//        ClientFacade userCompanyTest = LoginManager.getInstance().Login("test1@gmail.com", "12345678", ClientType.Company);
-//        ClientFacade userCustomerYest = LoginManager.getInstance().Login("email@gmail.com", "211", ClientType.Customer);
+        //Date Startdate = new Date()
 
-//        ((AdminFacade) userAdminTest).addCompany(company);
-//        ((AdminFacade) userAdminTest).updateCompany(company);
-//        ((AdminFacade) userAdminTest).deleteCompany(11);
-//        ((AdminFacade) userAdminTest).getAllCompanies();
-//        ((AdminFacade) userAdminTest).getOneCompany(16);
+        Company company = new Company("test Company", "test@gmail.com", "12345678");
+        Customer customer = new Customer("firsttttttt", "last", "email@gmail.com", "211");
+//        Coupons coupons = new Coupons(3,3,"Restaurant","20% off",Startdate,Enddate,2,55,null);
+        ClientFacade userAdminTest = LoginManager.getInstance().Login("admin@admin.com", "admin", ClientType.Administrator);
+        ClientFacade userCompanyTest = LoginManager.getInstance().Login("test1@gmail.com", "12345678", ClientType.Company);
+        ClientFacade userCustomerYest = LoginManager.getInstance().Login("email@gmail.com", "211", ClientType.Customer);
+
+        ((AdminFacade) userAdminTest).addCompany(company);
+        ((AdminFacade) userAdminTest).updateCompany(company);
+        ((AdminFacade) userAdminTest).deleteCompany(11);
+        ((AdminFacade) userAdminTest).getAllCompanies();
+        ((AdminFacade) userAdminTest).getOneCompany(16);
 //
-//        ((AdminFacade) userAdminTest).addCustomer(customer);
-//        ((AdminFacade) userAdminTest).updateCustomer(customer);
-//        ((AdminFacade) userAdminTest).deleteCustomer(3);
-//        ((AdminFacade) userAdminTest).getAllCustomers();
-//        ((AdminFacade) userAdminTest).getOneCustomer(4);
+        ((AdminFacade) userAdminTest).addCustomer(customer);
+        ((AdminFacade) userAdminTest).updateCustomer(customer);
+        ((AdminFacade) userAdminTest).deleteCustomer(3);
+        ((AdminFacade) userAdminTest).getAllCustomers();
+        ((AdminFacade) userAdminTest).getOneCustomer(4);
 
 //        ((CompanyFacade) userCompanyTest).addCoupon();
 //        ((CompanyFacade) userCompanyTest).updateCoupon();
