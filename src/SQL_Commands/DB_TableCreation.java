@@ -1,5 +1,11 @@
 package SQL_Commands;
 
+import DataBase.ConnectionPool;
+
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 public class DB_TableCreation {
 
     public static String createCompaniesTable =
@@ -45,11 +51,14 @@ public class DB_TableCreation {
                     "  `COUPON_ID` INT NOT NULL," +
                     "  PRIMARY KEY (`CUSTOMER_ID`, `COUPON_ID`));";
 
-    public static String couponsForiegnKeys =
+    public static String couponsForiegnKeysPart1 =
             "ALTER TABLE `projectcoupons`.`coupons` " +
                     "ADD INDEX `Company_ID_idx` (`COMPANY_ID` ASC) VISIBLE," +
-                    "ADD INDEX `Category_ID_idx` (`CATEGORY_ID` ASC) VISIBLE;" +
-                    "ALTER TABLE `projectcoupons`.`coupons` " +
+                    "ADD INDEX `Category_ID_idx` (`CATEGORY_ID` ASC) VISIBLE;";
+
+
+    public static String couponsForiegnKeysPart2 =
+            "ALTER TABLE `projectcoupons`.`coupons` " +
                     "ADD CONSTRAINT `Company_ID`" +
                     "  FOREIGN KEY (`COMPANY_ID`)" +
                     "  REFERENCES `projectcoupons`.`companies` (`ID`)" +
@@ -61,45 +70,58 @@ public class DB_TableCreation {
                     "  ON DELETE NO ACTION" +
                     "  ON UPDATE NO ACTION;";
 
-public static String customer_vs_couponsForiegnKeys =
-        "ALTER TABLE `projectcoupons`.`customers_vs_coupons` " +
-                "ADD INDEX `Coupon_ID_idx` (`COUPON_ID` ASC) VISIBLE;" +
-                ";" +
-                "ALTER TABLE `projectcoupons`.`customers_vs_coupons` " +
-                "ADD CONSTRAINT `Customer_ID`" +
-                "  FOREIGN KEY (`CUSTOMER_ID`)" +
-                "  REFERENCES `projectcoupons`.`customers` (`ID`)" +
-                "  ON DELETE NO ACTION" +
-                "  ON UPDATE NO ACTION," +
-                "ADD CONSTRAINT `Coupon_ID`" +
-                "  FOREIGN KEY (`COUPON_ID`)" +
-                "  REFERENCES `projectcoupons`.`coupons` (`ID`)" +
-                "  ON DELETE NO ACTION" +
-                "  ON UPDATE NO ACTION;";
-
-public static String createTableParameters =
-                "INSERT INTO `projectcoupons`.`categories` (`ID`, `NAME`) VALUES ('1', 'Food');" +
-                " INSERT INTO `projectcoupons`.`categories` (`ID`, `NAME`) VALUES ('2', 'Electricity');" +
-                " INSERT INTO `projectcoupons`.`categories` (`ID`, `NAME`) VALUES ('3', 'Restaurant');" +
-                " INSERT INTO `projectcoupons`.`categories` (`ID`, `NAME`) VALUES ('4', 'Vacation');" +
-                " INSERT INTO `projectcoupons`.`companies` (`NAME`, `EMAIL`, `PASSWORD`) VALUES ('test company num1', 'test1@gmail.com', '12345678');" +
-                " INSERT INTO `projectcoupons`.`companies` (`NAME`, `EMAIL`, `PASSWORD`) VALUES ('test company num2', 'test2@gmail.com', '87654321');" +
-                " INSERT INTO `projectcoupons`.`companies` (`NAME`, `EMAIL`, `PASSWORD`) VALUES ('test company num3', 'test3@gmail.com', '12345678');" +
-                " INSERT INTO `projectcoupons`.`companies` (`NAME`, `EMAIL`, `PASSWORD`) VALUES ('test company num4', 'test4@gmail.com', '09876543');" +
-                " INSERT INTO `projectcoupons`.`coupons` (`COMPANY_ID`, `CATEGORY_ID`, `TITLE`, `DESCRIPTION`, `START_DATE`, `END_DATE`, `AMOUNT`, `PRICE`) VALUES ('1', '1', 'Food', '15% off', '2024-01-01', '2025-01-01', '5', '20');" +
-                " INSERT INTO `projectcoupons`.`coupons` (`COMPANY_ID`, `CATEGORY_ID`, `TITLE`, `DESCRIPTION`, `START_DATE`, `END_DATE`, `AMOUNT`, `PRICE`) VALUES ('1', '2', 'Electricity', '20% off', '2024-01-01', '2025-01-01', '6', '25');" +
-                " INSERT INTO `projectcoupons`.`coupons` (`COMPANY_ID`, `CATEGORY_ID`, `TITLE`, `DESCRIPTION`, `START_DATE`, `END_DATE`, `AMOUNT`, `PRICE`) VALUES ('2', '2', 'Electricity', '20% off', '2024-01-01', '2025-01-01', '8', '25')" +
-                " INSERT INTO `projectcoupons`.`coupons` (`COMPANY_ID`, `CATEGORY_ID`, `TITLE`, `DESCRIPTION`, `START_DATE`, `END_DATE`, `AMOUNT`, `PRICE`) VALUES ('3', '4', 'Vacation', '10% off', '2024-01-01', '2024-12-01', '3', '30');" +
-                " INSERT INTO `projectcoupons`.`coupons` (`COMPANY_ID`, `CATEGORY_ID`, `TITLE`, `DESCRIPTION`, `START_DATE`, `END_DATE`, `AMOUNT`, `PRICE`) VALUES ('1', '3', 'Restaurant', '15%off', '2024-01-01', '2024-02-01', '1', '20');" +
-                " INSERT INTO `projectcoupons`.`customers` (`FIRST_NAME`, `LAST_NAME`, `EMAIL`, `PASSWORD`) VALUES ('tester1', 'project', 'tester1@gmail.com', '12345678');" +
-                " INSERT INTO `projectcoupons`.`customers` (`FIRST_NAME`, `LAST_NAME`, `EMAIL`, `PASSWORD`) VALUES ('tester2', 'project', 'tester2@gmail.com', '12345678');" +
-                " INSERT INTO `projectcoupons`.`customers` (`FIRST_NAME`, `LAST_NAME`, `EMAIL`, `PASSWORD`) VALUES ('tester3', 'project', 'tester3@gmail.com', '12345678');" +
-                " INSERT INTO `projectcoupons`.`customers_vs_coupons` (`CUSTOMER_ID`, `COUPON_ID`) VALUES ('1', '1');" +
-                " INSERT INTO `projectcoupons`.`customers_vs_coupons` (`CUSTOMER_ID`, `COUPON_ID`) VALUES ('1', '2');" +
-                " INSERT INTO `projectcoupons`.`customers_vs_coupons` (`CUSTOMER_ID`, `COUPON_ID`) VALUES ('2', '4');" +
-                " INSERT INTO `projectcoupons`.`customers_vs_coupons` (`CUSTOMER_ID`, `COUPON_ID`) VALUES ('2', '3');" +
-                " INSERT INTO `projectcoupons`.`customers_vs_coupons` (`CUSTOMER_ID`, `COUPON_ID`) VALUES ('3', '3');" +
-                " INSERT INTO `projectcoupons`.`customers_vs_coupons` (`CUSTOMER_ID`, `COUPON_ID`) VALUES ('3', '1');";
+    public static String customer_vs_couponsForiegnKeysPart1 =
+            "ALTER TABLE `projectcoupons`.`customers_vs_coupons` " +
+                    "ADD INDEX `Coupon_ID_idx` (`COUPON_ID` ASC) VISIBLE;";
 
 
+    public static String customer_vs_couponsForiegnKeysPart2 =
+            "ALTER TABLE `projectcoupons`.`customers_vs_coupons` " +
+                    "ADD CONSTRAINT `Customer_ID`" +
+                    "  FOREIGN KEY (`CUSTOMER_ID`)" +
+                    "  REFERENCES `projectcoupons`.`customers` (`ID`)" +
+                    "  ON DELETE NO ACTION" +
+                    "  ON UPDATE NO ACTION," +
+                    "ADD CONSTRAINT `Coupon_ID`" +
+                    "  FOREIGN KEY (`COUPON_ID`)" +
+                    "  REFERENCES `projectcoupons`.`coupons` (`ID`)" +
+                    "  ON DELETE NO ACTION" +
+                    "  ON UPDATE NO ACTION;";
+
+    public static void SQL_Batch() {
+        Connection Hibur = null;
+        try {
+            Hibur = ConnectionPool.getInstance().getConnection();
+            Statement SQL_Commands = Hibur.createStatement();
+            SQL_Commands = Hibur.createStatement();
+            SQL_Commands.addBatch("INSERT INTO `projectcoupons`.`categories` (`ID`, `NAME`) VALUES ('1', 'Food');");
+            SQL_Commands.addBatch("INSERT INTO `projectcoupons`.`categories` (`ID`, `NAME`) VALUES ('2', 'Electricity');");
+            SQL_Commands.addBatch("INSERT INTO `projectcoupons`.`categories` (`ID`, `NAME`) VALUES ('3', 'Restaurant');");
+            SQL_Commands.addBatch("INSERT INTO `projectcoupons`.`categories` (`ID`, `NAME`) VALUES ('4', 'Vacation');");
+            SQL_Commands.addBatch("INSERT INTO `projectcoupons`.`companies` (`NAME`, `EMAIL`, `PASSWORD`) VALUES ('test company num1', 'test1@gmail.com', '12345678');");
+            SQL_Commands.addBatch("INSERT INTO `projectcoupons`.`companies` (`NAME`, `EMAIL`, `PASSWORD`) VALUES ('test company num2', 'test2@gmail.com', '87654321');");
+            SQL_Commands.addBatch("INSERT INTO `projectcoupons`.`companies` (`NAME`, `EMAIL`, `PASSWORD`) VALUES ('test company num2', 'test2@gmail.com', '87654321');");
+            SQL_Commands.addBatch("INSERT INTO `projectcoupons`.`companies` (`NAME`, `EMAIL`, `PASSWORD`) VALUES ('test company num3', 'test3@gmail.com', '12345678');");
+            SQL_Commands.addBatch("INSERT INTO `projectcoupons`.`companies` (`NAME`, `EMAIL`, `PASSWORD`) VALUES ('test company num4', 'test4@gmail.com', '09876543');");
+            SQL_Commands.addBatch("INSERT INTO `projectcoupons`.`coupons` (`COMPANY_ID`, `CATEGORY_ID`, `TITLE`, `DESCRIPTION`, `START_DATE`, `END_DATE`, `AMOUNT`, `PRICE`) VALUES ('1', '1', 'Food', '15% off', '2024-01-01', '2025-01-01', '5', '20');");
+            SQL_Commands.addBatch("INSERT INTO `projectcoupons`.`coupons` (`COMPANY_ID`, `CATEGORY_ID`, `TITLE`, `DESCRIPTION`, `START_DATE`, `END_DATE`, `AMOUNT`, `PRICE`) VALUES ('1', '2', 'Electricity', '20% off', '2024-01-01', '2025-01-01', '6', '25');");
+            SQL_Commands.addBatch("INSERT INTO `projectcoupons`.`coupons` (`COMPANY_ID`, `CATEGORY_ID`, `TITLE`, `DESCRIPTION`, `START_DATE`, `END_DATE`, `AMOUNT`, `PRICE`) VALUES ('2', '2', 'Electricity', '20% off', '2024-01-01', '2025-01-01', '8', '25')");
+            SQL_Commands.addBatch("INSERT INTO `projectcoupons`.`coupons` (`COMPANY_ID`, `CATEGORY_ID`, `TITLE`, `DESCRIPTION`, `START_DATE`, `END_DATE`, `AMOUNT`, `PRICE`) VALUES ('3', '4', 'Vacation', '10% off', '2024-01-01', '2024-12-01', '3', '30');");
+            SQL_Commands.addBatch("INSERT INTO `projectcoupons`.`coupons` (`COMPANY_ID`, `CATEGORY_ID`, `TITLE`, `DESCRIPTION`, `START_DATE`, `END_DATE`, `AMOUNT`, `PRICE`) VALUES ('1', '3', 'Restaurant', '15%off', '2024-01-01', '2024-02-01', '1', '20');");
+            SQL_Commands.addBatch("INSERT INTO `projectcoupons`.`customers` (`FIRST_NAME`, `LAST_NAME`, `EMAIL`, `PASSWORD`) VALUES ('tester1', 'project', 'tester1@gmail.com', '12345678');");
+            SQL_Commands.addBatch("INSERT INTO `projectcoupons`.`customers` (`FIRST_NAME`, `LAST_NAME`, `EMAIL`, `PASSWORD`) VALUES ('tester2', 'project', 'tester2@gmail.com', '12345678');");
+            SQL_Commands.addBatch("INSERT INTO `projectcoupons`.`customers` (`FIRST_NAME`, `LAST_NAME`, `EMAIL`, `PASSWORD`) VALUES ('tester3', 'project', 'tester3@gmail.com', '12345678');");
+            SQL_Commands.addBatch("INSERT INTO `projectcoupons`.`customers_vs_coupons` (`CUSTOMER_ID`, `COUPON_ID`) VALUES ('1', '1');");
+            SQL_Commands.addBatch("INSERT INTO `projectcoupons`.`customers_vs_coupons` (`CUSTOMER_ID`, `COUPON_ID`) VALUES ('1', '2');");
+            SQL_Commands.addBatch("INSERT INTO `projectcoupons`.`customers_vs_coupons` (`CUSTOMER_ID`, `COUPON_ID`) VALUES ('2', '4');");
+            SQL_Commands.addBatch("INSERT INTO `projectcoupons`.`customers_vs_coupons` (`CUSTOMER_ID`, `COUPON_ID`) VALUES ('2', '3');");
+            SQL_Commands.addBatch("INSERT INTO `projectcoupons`.`customers_vs_coupons` (`CUSTOMER_ID`, `COUPON_ID`) VALUES ('3', '3');");
+            SQL_Commands.addBatch("INSERT INTO `projectcoupons`.`customers_vs_coupons` (`CUSTOMER_ID`, `COUPON_ID`) VALUES ('3', '1');");
+            SQL_Commands.executeBatch();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
