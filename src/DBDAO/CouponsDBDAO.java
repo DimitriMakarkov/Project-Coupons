@@ -31,23 +31,8 @@ public class CouponsDBDAO implements CouponsDAO {
 
     public String addCoupon(Coupons coupon) {
         Map<Integer, Object> params = new HashMap();
-        params.put(1, coupon.getCompanyID());
-        params.put(2, coupon.getCategoryID());
-        params.put(3, coupon.getTitle());
-        params.put(4, coupon.getDescription());
-        params.put(5, coupon.getStartDate());
-        params.put(6, coupon.getEndDate());
-        params.put(7, coupon.getAmount());
-        params.put(8, coupon.getPrice());
-        params.put(9, coupon.getImage());
-        DB_Utilities.RunCommand(Coupons_Commands.addCoupon, params);
-        return null;
-    }
-
-    public String updateCoupon(Coupons coupon) {
-        Map<Integer, Object> params = new HashMap();
         params.put(1, coupon.getID());
-        params.put(2, coupon.getCategoryID());
+        params.put(2, coupon.getCompanyID());
         params.put(3, coupon.getCategoryID());
         params.put(4, coupon.getTitle());
         params.put(5, coupon.getDescription());
@@ -55,7 +40,22 @@ public class CouponsDBDAO implements CouponsDAO {
         params.put(7, coupon.getEndDate());
         params.put(8, coupon.getAmount());
         params.put(9, coupon.getPrice());
-        params.put(10,coupon.getImage());
+        params.put(10,"");
+        DB_Utilities.RunCommand(Coupons_Commands.addCoupon, params);
+        return null;
+    }
+
+    public String updateCoupon(Coupons coupon) {
+        Map<Integer, Object> params = new HashMap();
+        params.put(1, coupon.getCategoryID());
+        params.put(2, coupon.getTitle());
+        params.put(3, coupon.getDescription());
+        params.put(4, coupon.getStartDate());
+        params.put(5, coupon.getEndDate());
+        params.put(6, coupon.getAmount());
+        params.put(7, coupon.getPrice());
+        params.put(8,coupon.getImage());
+        params.put(9,coupon.getID());
         DB_Utilities.RunCommand(Coupons_Commands.updateCoupon, params);
         return null;
     }
@@ -363,9 +363,8 @@ public class CouponsDBDAO implements CouponsDAO {
         Map<Integer, Object> params = new HashMap();
         params.put(1, CustomerID);
         params.put(2, CouponID);
-        params.put(3, CustomerID);
-        params.put(4, CouponID);
-        DB_Utilities.RunCommand(Coupons_Commands.customerPurchaseCoupon, params);
+        DB_Utilities.RunCommand(Coupons_Commands.customerPurchaseCoupon,params);
+        DB_Utilities.RunCommand(Coupons_Commands.addCustomerPurchase,params);
         System.out.println("The Coupon Has Successfully Been Purchased!");
     }
 }

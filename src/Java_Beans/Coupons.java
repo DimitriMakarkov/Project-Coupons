@@ -7,7 +7,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
-@AllArgsConstructor
 public class Coupons {
     private int ID;
     private int CompanyID;
@@ -20,7 +19,7 @@ public class Coupons {
     private double Price;
     private String Image;
 
-    public Coupons(int companyID, int categoryID, String title, String description, Date startDate, Date endDate, int amount, double price, String image) {
+    public Coupons(int companyID, int categoryID, String title, String description, Date startDate, Date endDate, int amount, double price,String image) {//removed image
         this.CompanyID = companyID;
         this.CategoryID = categoryID;
         this.Title = title;
@@ -31,7 +30,21 @@ public class Coupons {
         this.Price = price;
         this.Image = image;
     }
-//
+
+    public Coupons(int ID, int companyID, int categoryID, String title, String description, Date startDate, Date endDate, int amount, double price, String image) {
+        this.ID = ID;
+        CompanyID = companyID;
+        CategoryID = categoryID;
+        Title = title;
+        Description = description;
+        StartDate = startDate;
+        EndDate = endDate;
+        Amount = amount;
+        Price = price;
+        Image = image;
+    }
+
+    //
 //    public int getID() {
 //        return this.ID;
 //    }
