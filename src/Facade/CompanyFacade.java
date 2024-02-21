@@ -27,6 +27,7 @@ public class CompanyFacade extends ClientFacade {
     }
 
     public void addCoupon(Coupons coupons) {
+        System.out.println(coupons);
         if (!couponsDAO.isCompanyCouponExist(coupons, CompanyID)) {
             couponsDAO.addCoupon(coupons);
             System.out.println("The Coupon Has Successfully Been Added!");
@@ -37,6 +38,7 @@ public class CompanyFacade extends ClientFacade {
     }
 
     public void updateCoupon(Coupons coupons) {
+        System.out.println(coupons);
         couponsDAO.updateCoupon(coupons);
         System.out.println("The Coupon Has Been Updated!");
     }

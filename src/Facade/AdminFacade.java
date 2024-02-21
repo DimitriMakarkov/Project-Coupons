@@ -4,6 +4,7 @@ import Java_Beans.Company;
 import Java_Beans.Customer;
 
 import java.util.ArrayList;
+import java.util.SortedMap;
 
 public class AdminFacade extends ClientFacade {
 
@@ -19,18 +20,20 @@ public class AdminFacade extends ClientFacade {
     }
 
     public void addCompany(Company company) {
+        System.out.println(company);
         if (!companyDAO.isCompanyDuplicate(company.getName(), company.getEmail())) {
             companyDAO.addCompany(company);
             System.out.println("The Company Has Successfully Been Added!");
             System.out.println();
         } else {
-            System.out.println("Company Already Exists");
+            System.out.println("A Company With The Same Email Or Name Already Exists");
         }
     }
 
     public void updateCompany(Company company) {
+        System.out.println(company);
         companyDAO.updateCompanyEP(company);
-        System.out.println("The Company Has Been Updated!");
+        System.out.println("The Company's Email And Password Have Been Updated!");
     }
 
     public void deleteCompany(int CompanyID) {
@@ -48,15 +51,17 @@ public class AdminFacade extends ClientFacade {
     }
 
     public void addCustomer(Customer customer) {
+        System.out.println(customer);
         if (customersDAO.isCustomerDuplicate(customer.getEmail())) {
             System.out.println("Customer With The Same Email Exists");
         } else {
             customersDAO.addCustomer(customer);
+            System.out.println("The Customer Has Been Added!");
         }
-
     }
 
     public void updateCustomer(Customer customer) {
+        System.out.println(customer);
         customersDAO.updateCustomer(customer);
         System.out.println("The Customer Has Been Updated!");
     }

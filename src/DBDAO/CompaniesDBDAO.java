@@ -27,6 +27,7 @@ public class CompaniesDBDAO implements CompanyDAO {
             }
             return false;
         } catch (SQLException e) {
+            System.out.println(e.getMessage());
             throw new RuntimeException(e);
         }
     }
@@ -39,7 +40,7 @@ public class CompaniesDBDAO implements CompanyDAO {
         ResultSet result = DB_Utilities.RunCommandWithResult(Company_Commands.isCompanyDuplicate, params);
         try {
             while (result.next()) {
-                return result.getInt("RESULT") == 1;
+                return result.getInt("RESULT") != 0;
             }
             return false;
         } catch (SQLException e) {

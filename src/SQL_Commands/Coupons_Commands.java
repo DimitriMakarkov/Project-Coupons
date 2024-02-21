@@ -67,6 +67,15 @@ public class Coupons_Commands {
     public static final String deleteCouponPurchase =
             "DELETE FROM `projectcoupons`.`customers_vs_coupons` WHERE CUSTOMERS_ID=? AND COUPON_ID=?";
 
+    public static final String isCustomerCouponDuplicate =
+            "SELECT count(*) AS RESULT FROM `projectcoupons`.`customers_vs_coupons` WHERE COUPON_ID=?";
+
+    public static final String isCouponExpiredOrEmpty =
+            "SELECT count(*)" +
+                    "FROM `projectcoupons`.`coupons`" +
+                    "WHERE (END_DATE < CURRENT_DATE OR AMOUNT = 0)" +
+                    "AND ID = 5;";
+
     public static final String customerPurchaseCoupon =
             "UPDATE `projectcoupons`.`coupons` " +
                     "SET AMOUNT = AMOUNT - 1 " +

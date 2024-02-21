@@ -59,6 +59,7 @@ public class DB_Utilities {
             System.out.println(e.getMessage());
             return false;
         } catch (SQLException e) {
+            System.out.println(e.getErrorCode());
             System.out.println(e.getMessage());
             return false;
         } finally {

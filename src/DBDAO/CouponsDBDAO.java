@@ -20,7 +20,7 @@ public class CouponsDBDAO implements CouponsDAO {
         ResultSet result = DB_Utilities.RunCommandWithResult(Coupons_Commands.isCompanyCouponExist, params);
         try {
             while (result.next()) {
-                return result.getInt("RESULT") == 1;
+                return result.getInt("RESULT") != 0;
             }
             return false;
         } catch (SQLException e) {
@@ -363,8 +363,21 @@ public class CouponsDBDAO implements CouponsDAO {
         Map<Integer, Object> params = new HashMap();
         params.put(1, CustomerID);
         params.put(2, CouponID);
-        DB_Utilities.RunCommand(Coupons_Commands.customerPurchaseCoupon,params);
-        DB_Utilities.RunCommand(Coupons_Commands.addCustomerPurchase,params);
-        System.out.println("The Coupon Has Successfully Been Purchased!");
+        ResultSet results = DB_Utilities.RunCommandWithParameter(Coupons_Commands.isCustomerCouponDuplicate,CouponID);
+        try{
+            if(results.getInt(1)!=0){
+                System.out.println("The Coupon Is Already Purchased");
+            }
+                results = DB_Utilities.RunCommandWithParameter(Coupons_Commands.isCouponExpiredOrEmpty,CouponID);
+            if(results.getInt(1)!=0){
+                System.out.println("The Coupon Is Expired Or Is Empty");
+            }
+                DB_Utilities.RunCommand(Coupons_Commands.customerPurchaseCoupon, params);
+                DB_Utilities.RunCommand(Coupons_Commands.addCustomerPurchase, params);
+                System.out.println("The Coupon Has Successfully Been Purchased!");
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
