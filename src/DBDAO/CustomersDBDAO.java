@@ -3,10 +3,7 @@ package DBDAO;
 import DAO.CustomersDAO;
 import DataBase.DB_Utilities;
 import Java_Beans.Customer;
-import SQL_Commands.Company_Commands;
-import SQL_Commands.Coupons_Commands;
 import SQL_Commands.Customer_Commands;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;

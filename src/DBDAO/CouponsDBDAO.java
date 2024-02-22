@@ -5,10 +5,8 @@ import DataBase.DB_Utilities;
 import Java_Beans.Category;
 import Java_Beans.Coupons;
 import SQL_Commands.Coupons_Commands;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.*;
 
 public class CouponsDBDAO implements CouponsDAO {
@@ -282,7 +280,6 @@ public class CouponsDBDAO implements CouponsDAO {
     public void deleteCompanyHistory(int CompanyID) {
         Map<Integer, Object> params = new HashMap();
         params.put(1, CompanyID);
-//            params.put(2,CompanyID);
         if (DB_Utilities.RunCommand(Coupons_Commands.deleteCompanyHistory, params)) {
             DB_Utilities.RunCommand(Coupons_Commands.deleteCompanyCoupons, params);
             System.out.println("The Company's Coupons And History Has Been Deleted");
@@ -359,22 +356,32 @@ public class CouponsDBDAO implements CouponsDAO {
         System.out.println("The Coupon Purchase Has Successfully Been Deleted!");
     }
 
-    public void customerPurchaseCoupon(int CouponID, int CustomerID) {
+    public boolean customerPurchaseCoupon(int CouponID, int CustomerID) {
         Map<Integer, Object> params = new HashMap();
         params.put(1, CustomerID);
         params.put(2, CouponID);
-        ResultSet results = DB_Utilities.RunCommandWithParameter(Coupons_Commands.isCustomerCouponDuplicate,CouponID);
+        ResultSet results = DB_Utilities.RunCommandWithResult(Coupons_Commands.isCustomerCouponDuplicate,params);
         try{
-            if(results.getInt(1)!=0){
-                System.out.println("The Coupon Is Already Purchased");
+            if (results.next()) {
+                int ID = results.getInt(1);
+                if (ID != 0) {
+                    System.out.println("The Coupon Is Already Purchased");
+                    return false;
+                }
             }
-                results = DB_Utilities.RunCommandWithParameter(Coupons_Commands.isCouponExpiredOrEmpty,CouponID);
-            if(results.getInt(1)!=0){
-                System.out.println("The Coupon Is Expired Or Is Empty");
+            results = DB_Utilities.RunCommandWithParameter(Coupons_Commands.isCouponExpiredOrEmpty, CouponID);
+            if (results.next()) {
+                int ID = results.getInt(1);
+                if (ID != 0) {
+                    System.out.println("The Coupon Is Expired Or Is Empty");
+                    return false;
+                }
             }
                 DB_Utilities.RunCommand(Coupons_Commands.customerPurchaseCoupon, params);
                 DB_Utilities.RunCommand(Coupons_Commands.addCustomerPurchase, params);
                 System.out.println("The Coupon Has Successfully Been Purchased!");
+                return true;
+
 
         } catch (SQLException e) {
             throw new RuntimeException(e);

@@ -3,11 +3,7 @@ package Facade;
 import Java_Beans.Category;
 import Java_Beans.Coupons;
 import Java_Beans.Company;
-
 import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-
 
 public class CompanyFacade extends ClientFacade {
 

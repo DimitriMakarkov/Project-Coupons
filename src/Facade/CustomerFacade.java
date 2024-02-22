@@ -3,9 +3,7 @@ package Facade;
 import Java_Beans.Category;
 import Java_Beans.Coupons;
 import Java_Beans.Customer;
-
 import java.util.ArrayList;
-import java.util.stream.Collectors;
 
 public class CustomerFacade extends ClientFacade {
     private int CustomerID;
@@ -24,6 +22,8 @@ public class CustomerFacade extends ClientFacade {
     }
 
     public void PurchaseCoupon(Coupons coupons) {
+        coupons=couponsDAO.getOneCoupon(coupons.getID());
+        System.out.println(coupons);
         couponsDAO.customerPurchaseCoupon(coupons.getID(), CustomerID);
     }
 

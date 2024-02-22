@@ -119,7 +119,7 @@ public class CompaniesDBDAO implements CompanyDAO {
                 String Password = results.getString("Password");
                 ArrayList<Coupons> coup = new ArrayList<>();
                 coup = couponsDBDAO.getAllCompanyCoupons(CompanyID);
-                company = new Company(ID, Name, Email, Password, coup);//removed id
+                company = new Company(ID, Name, Email, Password, coup);
             }
             System.out.println(company);
             return company;

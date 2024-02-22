@@ -1,7 +1,6 @@
 package DAO;
 
 import Java_Beans.Customer;
-
 import java.util.ArrayList;
 
 public interface CustomersDAO {

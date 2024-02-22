@@ -27,12 +27,12 @@ public class Tester {
 
     public static void testAll() {
 
-//        CreateTablesDBDAO createTablesDBDAO = new CreateTablesDBDAO();
-//        createTablesDBDAO.createAllTables();
+        CreateTablesDBDAO createTablesDBDAO = new CreateTablesDBDAO();
+        createTablesDBDAO.createAllTables();
 
-//        CouponExpirationDaily couponExpirationDaily = new CouponExpirationDaily();
-//        Thread dailyTask = new Thread(new CouponExpirationDaily());
-//        dailyTask.start();
+        CouponExpirationDaily couponExpirationDaily = new CouponExpirationDaily();
+        Thread dailyTask = new Thread(new CouponExpirationDaily());
+        dailyTask.start();
         try {
             String StartDate = "2024/01/01";
             String EndDate = "2025/01/01";
@@ -51,43 +51,39 @@ public class Tester {
             Coupons coupons = new Coupons(1, 4, "Vacatio", "20% off", CouponStartDate, CouponEndDate, 2, 55, "");
             ClientFacade userCompanyTest = LoginManager.getInstance().Login("test1@gmail.com", "12345678", ClientType.Company);
             ClientFacade userCustomerTest = LoginManager.getInstance().Login("tester1@gmail.com", "12345678", ClientType.Customer);
-//            ClientFacade userAdminTest = LoginManager.getInstance().Login("admin@admin.com", "admin", ClientType.Administrator);
+            ClientFacade userAdminTest = LoginManager.getInstance().Login("admin@admin.com", "admin", ClientType.Administrator);
 
 
-//            ((AdminFacade) userAdminTest).addCompany(company);
-//            company.setPassword("87654321");
-//            ((AdminFacade) userAdminTest).updateCompany(company);
-//            ((AdminFacade) userAdminTest).deleteCompany(3);
-//            ((AdminFacade) userAdminTest).getAllCompanies();
-//            ((AdminFacade) userAdminTest).getOneCompany(4);
-//            ((AdminFacade) userAdminTest).addCustomer(customer);
-//            customer.setPassword("87654321");
-//            ((AdminFacade) userAdminTest).updateCustomer(customer);
-//            ((AdminFacade) userAdminTest).deleteCustomer(3);
-//            ((AdminFacade) userAdminTest).getAllCustomers();
-//            ((AdminFacade) userAdminTest).getOneCustomer(4);
-//
-//            ((CompanyFacade) userCompanyTest).addCoupon(coupons);
-//            coupons.setID(5);
-//            coupons.setDescription("30% off");
-//            ((CompanyFacade) userCompanyTest).updateCoupon(coupons);
-//            ((CompanyFacade) userCompanyTest).deleteCoupon(3);
-//            ((CompanyFacade) userCompanyTest).getCompanyCoupons();
-//            ((CompanyFacade) userCompanyTest).getCompanyCoupons(Category.Electricity);
-//            ((CompanyFacade) userCompanyTest).getCompanyCoupons(34);
-//            ((CompanyFacade) userCompanyTest).getCompanyDetails();
-//
-            ((CustomerFacade) userCustomerTest).PurchaseCoupon(coupons); //fix disssssssssssssssssssssss
+            ((AdminFacade) userAdminTest).addCompany(company);
+            company.setPassword("87654321");
+            ((AdminFacade) userAdminTest).updateCompany(company);
+            ((AdminFacade) userAdminTest).deleteCompany(3);
+            ((AdminFacade) userAdminTest).getAllCompanies();
+            ((AdminFacade) userAdminTest).getOneCompany(4);
+            ((AdminFacade) userAdminTest).addCustomer(customer);
+            customer.setPassword("87654321");
+            ((AdminFacade) userAdminTest).updateCustomer(customer);
+            ((AdminFacade) userAdminTest).deleteCustomer(3);
+            ((AdminFacade) userAdminTest).getAllCustomers();
+            ((AdminFacade) userAdminTest).getOneCustomer(4);
 
+            ((CompanyFacade) userCompanyTest).addCoupon(coupons);
+            coupons.setID(5);
+            coupons.setDescription("30% off");
+            ((CompanyFacade) userCompanyTest).updateCoupon(coupons);
+            ((CompanyFacade) userCompanyTest).deleteCoupon(3);
+            ((CompanyFacade) userCompanyTest).getCompanyCoupons();
+            ((CompanyFacade) userCompanyTest).getCompanyCoupons(Category.Electricity);
+            ((CompanyFacade) userCompanyTest).getCompanyCoupons(34);
+            ((CompanyFacade) userCompanyTest).getCompanyDetails();
 
-
-
-//            ((CustomerFacade) userCustomerTest).getCustomerCoupons();
-//            ((CustomerFacade) userCustomerTest).getCustomerCoupons(Category.Electricity);
-//            ((CustomerFacade) userCustomerTest).getCustomerCoupons(36);
-//            ((CustomerFacade) userCustomerTest).getCustomerDetails();
-//            couponExpirationDaily.stop();
-
+            coupons.setID(4);
+            ((CustomerFacade) userCustomerTest).PurchaseCoupon(coupons);
+            ((CustomerFacade) userCustomerTest).getCustomerCoupons();
+            ((CustomerFacade) userCustomerTest).getCustomerCoupons(Category.Electricity);
+            ((CustomerFacade) userCustomerTest).getCustomerCoupons(36);
+            ((CustomerFacade) userCustomerTest).getCustomerDetails();
+            couponExpirationDaily.stop();
         } catch (ParseException e) {
             System.out.println("Error: Unable to parse the date");
 

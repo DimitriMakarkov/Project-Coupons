@@ -2,9 +2,7 @@ package Facade;
 
 import Java_Beans.Company;
 import Java_Beans.Customer;
-
 import java.util.ArrayList;
-import java.util.SortedMap;
 
 public class AdminFacade extends ClientFacade {
 

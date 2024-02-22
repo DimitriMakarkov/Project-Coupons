@@ -2,7 +2,6 @@ package DAO;
 
 import Java_Beans.Category;
 import Java_Beans.Coupons;
-
 import java.util.ArrayList;
 
 public interface CouponsDAO {
@@ -43,5 +42,5 @@ public interface CouponsDAO {
 
     void deleteCouponPurchase(int CustomerID, int CouponID);
 
-    void customerPurchaseCoupon(int CouponID, int CustomerID);
+    boolean customerPurchaseCoupon(int CouponID, int CustomerID);
 }

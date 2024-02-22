@@ -5,7 +5,6 @@ import Facade.ClientFacade;
 import Facade.CompanyFacade;
 import Facade.CustomerFacade;
 
-
 public class LoginManager {
 
     private static LoginManager instance;
