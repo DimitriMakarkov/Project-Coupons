@@ -12,7 +12,6 @@ import Java_Beans.Customer;
 import Job.CouponExpirationDaily;
 import Login.ClientType;
 import Login.LoginManager;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
